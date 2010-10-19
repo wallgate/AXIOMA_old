@@ -1,0 +1,12 @@
+options:
+  type: INNODB
+  collate: utf8_general_ci
+  charset: utf8
+
+
+
+User:
+  tableName: sys_users
+  columns:
+    login: string(20)
+    password: string(200)
