@@ -7,6 +7,11 @@
     </head>
 
     <body>
+        <div class="topArea">
+            <p>Привет, <b><?= $this->identity() ?></b></p>
+            [ <a href="/logout">выход</a> ]
+        </div>
+
         <div class="main">
             <?= $this->layout()->content; ?>
         </div>
