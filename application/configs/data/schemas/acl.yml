@@ -18,6 +18,21 @@ User:
       local: role
       foreign: id
 
+
+
+Resource:
+  tableName: sys_resources
+  columns:
+    url: string(200)
+    description: string(500)
+    rule: integer
+  relations:
+    Rule:
+      local: rule
+      foreign: id
+
+
+
 Role:
   tableName: sys_roles
   columns:
@@ -28,3 +43,36 @@ Role:
       type: many
       local: id
       foreign: role
+    Rules:
+      foreignAlias: Roles
+      class: Rule
+      refClass: Access
+
+Rule:
+  tableName: sys_rules
+  columns:
+    name: string(20)
+  relations:
+    Resource:
+      local: id
+      foreign: rule
+      type: many
+    Roles:
+      foreignAlias: Rules
+      class: Role
+      refClass: Access
+
+Access:
+  tableName: sys_access
+  columns:
+    rule_id:
+      type: integer
+      primary: true
+    role_id:
+      type: integer
+      primary: true
+  relations:
+    Rules:
+      class: Rule
+    Roles:
+      class: Role

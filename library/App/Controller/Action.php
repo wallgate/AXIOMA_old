@@ -34,7 +34,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action
 
         $role     = $auth->role;
         $resource = App_Acl_Resources::getResourceType($this->getRequest());
-echo 'ROLE '.$role; echo '<br/>RESOURCE '.$resource;
+
         if ( !$acl->isAllowed($role, $resource) )
             throw new Exception(self::ERROR_RESTRICTED);
     }
