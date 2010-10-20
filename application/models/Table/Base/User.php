@@ -7,6 +7,8 @@
  * 
  * @property string $login
  * @property string $password
+ * @property integer $role
+ * @property Table_Role $Role
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -26,6 +28,10 @@ abstract class Table_Base_User extends Doctrine_Record
              'type' => 'string',
              'length' => '200',
              ));
+        $this->hasColumn('role', 'integer', null, array(
+             'type' => 'integer',
+             'default' => 1,
+             ));
 
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_general_ci');
@@ -35,6 +41,8 @@ abstract class Table_Base_User extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasOne('Table_Role as Role', array(
+             'local' => 'role',
+             'foreign' => 'id'));
     }
 }

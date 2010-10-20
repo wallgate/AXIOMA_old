@@ -1,4 +1,11 @@
 Table_User:
   User_1:
-    login: user
-    password: root
+    login: "user"
+    password: "root"
+    Role: User
+
+Table_Role:
+  User:
+    name: "User"
+  Webmaster:
+    name: "Webmaster"

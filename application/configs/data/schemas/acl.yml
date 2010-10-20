@@ -10,3 +10,21 @@ User:
   columns:
     login: string(20)
     password: string(200)
+    role:
+      type: integer
+      default: 1
+  relations:
+    Role:
+      local: role
+      foreign: id
+
+Role:
+  tableName: sys_roles
+  columns:
+    name: string(20)
+  relations:
+    Users:
+      class: User
+      type: many
+      local: id
+      foreign: role
