@@ -4,15 +4,22 @@ class App_Acl extends Zend_Acl
 {
     public function __construct($auth = null)
     {
-        $this->add(new Zend_Acl_Resource(App_Acl_Resources::PUBLIC_PAGE));
-        $this->add(new Zend_Acl_Resource(App_Acl_Resources::PRIVATE_PAGE));
-
-        $this->addRole(new Zend_Acl_Role(App_Acl_Roles::USER));
-        $this->addRole(new Zend_Acl_Role(App_Acl_Roles::WEBMASTER), App_Acl_Roles::USER);
-
         $this->deny();
-        $this->allow(App_Acl_Roles::USER, App_Acl_Resources::PUBLIC_PAGE);
-        $this->allow(App_Acl_Roles::WEBMASTER, App_Acl_Resources::PRIVATE_PAGE);
+
+        $resources = new App_Acl_Resources(Table_Resource::getAllResources());
+        foreach ($resources->getResources() as $resource)
+            $this->add(new Zend_Acl_Resource($resource['id']));
+
+        $roles = Table_Role::getRoles();
+        foreach ($roles as $role)
+        {
+            $this->addRole(new Zend_Acl_Role($role['id']));
+
+            // @todo явно требуется какой-то рефакторинг
+            $refs = $role['Rules'];
+            foreach ($refs as $resource)
+                $this->allow($role['id'], $resource['id']);
+        }
 
         // доступ только для автора материала
         // if ($auth)

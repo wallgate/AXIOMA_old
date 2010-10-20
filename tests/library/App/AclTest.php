@@ -17,10 +17,10 @@ class App_AclTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     public function testGuestAccess()
     {
-        $guest = App_Acl_Roles::USER;
-        $this->assertTrue($this->acl->hasRole($guest));
-        $this->assertTrue($this->acl->isAllowed($guest, App_Acl_Resources::PUBLIC_PAGE));
-        $this->assertFalse($this->acl->isAllowed($guest, App_Acl_Resources::PRIVATE_PAGE));
+        $user = App_Acl_Roles::USER;
+        $this->assertTrue($this->acl->hasRole($user));
+        $this->assertTrue($this->acl->isAllowed($user, App_Acl_Resources::PUBLIC_PAGE));
+        $this->assertFalse($this->acl->isAllowed($user, App_Acl_Resources::PRIVATE_PAGE));
     }
 
     public function testWebmasterAccess()
