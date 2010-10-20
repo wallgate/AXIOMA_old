@@ -11,23 +11,23 @@ class App_AclTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     public function testResources()
     {
-        $this->assertTrue($this->acl->has(App_Acl_Resources::PUBLIC_PAGE));
-        $this->assertTrue($this->acl->has(App_Acl_Resources::PRIVATE_PAGE));
+        $this->assertTrue($this->acl->has(1));
+        $this->assertTrue($this->acl->has(2));
     }
 
     public function testGuestAccess()
     {
-        $guest = App_Acl_Roles::USER;
-        $this->assertTrue($this->acl->hasRole($guest));
-        $this->assertTrue($this->acl->isAllowed($guest, App_Acl_Resources::PUBLIC_PAGE));
-        $this->assertFalse($this->acl->isAllowed($guest, App_Acl_Resources::PRIVATE_PAGE));
+        $user = 1;
+        $this->assertTrue($this->acl->hasRole($user));
+        $this->assertTrue($this->acl->isAllowed($user, 1));
+        $this->assertFalse($this->acl->isAllowed($user, 2));
     }
 
     public function testWebmasterAccess()
     {
-        $webmaster = App_Acl_Roles::WEBMASTER;
+        $webmaster = 2;
         $this->assertTrue($this->acl->hasRole($webmaster));
-        $this->assertTrue($this->acl->isAllowed($webmaster, App_Acl_Resources::PUBLIC_PAGE));
-        $this->assertTrue($this->acl->isAllowed($webmaster, App_Acl_Resources::PRIVATE_PAGE));
+        $this->assertTrue($this->acl->isAllowed($webmaster, 1));
+        $this->assertTrue($this->acl->isAllowed($webmaster, 2));
     }
 }

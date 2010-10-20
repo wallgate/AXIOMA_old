@@ -2,8 +2,20 @@
 
 class App_Acl_Resources
 {
-    const PUBLIC_PAGE = 1;
-    const PRIVATE_PAGE = 2;
+    const ERROR = -101;
+
+    private static $resources;
+    
+    public function __construct($resources)
+    {
+        self::$resources = $resources;
+    }
+
+    public function getResources()
+    {
+        return self::$resources;
+    }
+
 
     /**
      * @param Zend_Controller_Request_Abstract $request
@@ -13,19 +25,9 @@ class App_Acl_Resources
         $controller = $request->getControllerName();
         $action     = $request->getActionName();
 
-        $type = self::PRIVATE_PAGE;
+        $url = $controller.'/'.$action;
+        return self::$resources[$url]['rule'];
 
-        switch ($controller)
-        {
-            case 'index':
-                switch ($action)
-                {
-                    case 'index': $type = self::PUBLIC_PAGE; break;
-                    case 'admin': $type = self::PRIVATE_PAGE; break;
-                }
-                break;
-        }
-
-        return $type;
+        throw new Exception(self::ERROR);
     }
 }

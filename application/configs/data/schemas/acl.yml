@@ -65,14 +65,14 @@ Rule:
 Access:
   tableName: sys_access
   columns:
-    rule_id:
-      type: integer
-      primary: true
     role_id:
       type: integer
       primary: true
+    rule_id:
+      type: integer
+      primary: true
   relations:
-    Rules:
-      class: Rule
     Roles:
       class: Role
+    Rules:
+      class: Rule
