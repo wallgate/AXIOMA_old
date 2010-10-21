@@ -16,6 +16,7 @@ class Table_User extends Table_Base_User
     public static function authenticate($login, $password)
     {
         $user = Doctrine_Query::create()
+                              ->select('password', 'name', 'role')
                               ->from('Table_User')
                               ->where('login=?', $login)
                               ->limit(1)
@@ -23,7 +24,7 @@ class Table_User extends Table_Base_User
 
         if ($user)
         {
-            if ($user->password == $password)
+            if ($user->password == md5($password))
                 return $user;
 
             throw new Exception(self::ERROR_WRONG_PASSWORD);

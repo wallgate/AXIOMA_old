@@ -7,6 +7,14 @@
  * 
  * @property string $login
  * @property string $password
+ * @property string $name
+ * @property string $surname
+ * @property string $phone
+ * @property string $address
+ * @property date $birthdate
+ * @property date $hiredate
+ * @property varchar $marital
+ * @property varchar $children
  * @property integer $role
  * @property Table_Role $Role
  * 
@@ -26,6 +34,36 @@ abstract class Table_Base_User extends Doctrine_Record
              ));
         $this->hasColumn('password', 'string', 200, array(
              'type' => 'string',
+             'length' => '200',
+             ));
+        $this->hasColumn('name', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
+             ));
+        $this->hasColumn('surname', 'string', 50, array(
+             'type' => 'string',
+             'length' => '50',
+             ));
+        $this->hasColumn('phone', 'string', 15, array(
+             'type' => 'string',
+             'length' => '15',
+             ));
+        $this->hasColumn('address', 'string', 100, array(
+             'type' => 'string',
+             'length' => '100',
+             ));
+        $this->hasColumn('birthdate', 'date', null, array(
+             'type' => 'date',
+             ));
+        $this->hasColumn('hiredate', 'date', null, array(
+             'type' => 'date',
+             ));
+        $this->hasColumn('marital', 'varchar', 30, array(
+             'type' => 'varchar',
+             'length' => '30',
+             ));
+        $this->hasColumn('children', 'varchar', 200, array(
+             'type' => 'varchar',
              'length' => '200',
              ));
         $this->hasColumn('role', 'integer', null, array(

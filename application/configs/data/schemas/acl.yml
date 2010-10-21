@@ -10,6 +10,16 @@ User:
   columns:
     login: string(20)
     password: string(200)
+    name: string(50)
+    surname: string(50)
+    avatar: string(250)
+    phone: string(15)
+    address: string(100)
+    birthdate: date
+    hiredate: date
+    marital: varchar(30)
+    #сделать enum
+    children: varchar(200)
     role:
       type: integer
       default: 1

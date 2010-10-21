@@ -6,7 +6,7 @@ class App_View_Helper_Identity extends Zend_View_Helper_Abstract
     {
         if (Zend_Auth::getInstance()->hasIdentity())
         {
-            return Zend_Auth::getInstance()->getIdentity()->login;
+            return Zend_Auth::getInstance()->getIdentity()->name;
         }
         return false;
     }
