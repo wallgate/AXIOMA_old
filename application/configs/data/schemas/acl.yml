@@ -19,20 +19,6 @@ User:
       foreign: id
 
 
-
-Resource:
-  tableName: sys_resources
-  columns:
-    url: string(200)
-    description: string(500)
-    rule: integer
-  relations:
-    Rule:
-      local: rule
-      foreign: id
-
-
-
 Role:
   tableName: sys_roles
   columns:
@@ -53,10 +39,6 @@ Rule:
   columns:
     name: string(20)
   relations:
-    Resource:
-      local: id
-      foreign: rule
-      type: many
     Roles:
       foreignAlias: Rules
       class: Role

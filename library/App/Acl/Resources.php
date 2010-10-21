@@ -2,16 +2,40 @@
 
 class App_Acl_Resources
 {
-    const ERROR = -101;
-
     private static $resources;
     
-    public function __construct($resources)
+    public function __construct($navConfig)
     {
-        self::$resources = $resources;
+        if (!is_array($navConfig))
+        {
+            // @todo поставить сюда try-catch
+            $navConfig = $navConfig->toArray();
+        }
+        self::$resources = $this->processNavigation($navConfig);
     }
 
-    public function getResources()
+
+    private function processNavigation(array $resources)
+    {
+        $out = array();
+
+        foreach ($resources as $resource)
+        {
+            if (is_array($resource['pages']))
+            {
+                $inner = $this->processNavigation($resource['pages']);
+                foreach ($inner as $page)
+                    $out[$page['uri']] = $page;
+                unset($resource['pages']);
+            }
+
+            $out[$resource['uri']] = $resource;
+        }
+        return $out;
+    }
+
+
+    public static function getResources()
     {
         return self::$resources;
     }
@@ -32,7 +56,5 @@ class App_Acl_Resources
             $url = $request;
 
         return self::$resources[$url]['rule'];
-
-        throw new Exception(self::ERROR);
     }
 }

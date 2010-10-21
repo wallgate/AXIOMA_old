@@ -9,19 +9,6 @@ Table_User:
     Role: Webmaster
 
 
-
-Table_Resource:
-  index_index:
-    url: "/index/index"
-    description: "Главная страница"
-    Rule: Public
-  index_admin:
-    url: "/admin/index"
-    description: "Скрытая страница"
-    Rule: Private
-
-
-
 Table_Role:
   User:
     name: "User"

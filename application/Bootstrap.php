@@ -16,10 +16,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
         $view->headScript()->appendFile('/public/js/main.js');
 
-
         $view->addHelperPath('App/View/Helper', 'App_View_Helper');
-
-        $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Navigation.xml', 'nav');
 
         return $view;
     }
@@ -58,6 +55,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     public function _initAcl()
     {
-        Zend_Registry::set('ACL', new App_Acl());
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+        $view   = $layout->getView();
+
+        $navConfig       = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Navigation.xml', 'nav');
+        $view->navConfig = $navConfig;
+        $resources       = new App_Acl_Resources($navConfig);
+        
+        $acl = new App_Acl(Zend_Auth::getInstance()->getIdentity());
+        Zend_Registry::set('ACL', $acl);
+
+        return $acl;
     }
 }
