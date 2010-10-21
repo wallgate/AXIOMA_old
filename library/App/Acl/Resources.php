@@ -22,10 +22,15 @@ class App_Acl_Resources
      */
     public static function getResourceType($request)
     {
-        $controller = $request->getControllerName();
-        $action     = $request->getActionName();
+        if ($request instanceof Zend_Controller_Request_Abstract)
+        {
+            $controller = $request->getControllerName();
+            $action     = $request->getActionName();
+            $url = '/'.$controller.'/'.$action;
+        }
+        elseif (is_string($request))
+            $url = $request;
 
-        $url = $controller.'/'.$action;
         return self::$resources[$url]['rule'];
 
         throw new Exception(self::ERROR);

@@ -8,8 +8,11 @@
 
     <body>
         <div class="topArea">
-            <p>Привет, <b><?= $this->identity() ?></b></p>
-            [ <a href="/logout">выход</a> ]
+            <p>
+                Привет, <b><?= $this->identity() ?></b>
+                [ <a href="/logout">выход</a> ]
+            </p>
+            <?= $this->navigation($this->navConfig); ?>
         </div>
 
         <div class="main">

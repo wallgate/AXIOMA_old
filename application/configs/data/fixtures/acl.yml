@@ -1,17 +1,22 @@
 Table_User:
-  User_1:
+  User:
     login: "user"
     password: "root"
     Role: User
+  Admin:
+    login: "admin"
+    password: "root"
+    Role: Webmaster
+
 
 
 Table_Resource:
   index_index:
-    url: "index/index"
+    url: "/index/index"
     description: "Главная страница"
     Rule: Public
   index_admin:
-    url: "index/admin"
+    url: "/admin/index"
     description: "Скрытая страница"
     Rule: Private
 
@@ -20,22 +25,13 @@ Table_Resource:
 Table_Role:
   User:
     name: "User"
+    Rules: [Public]
   Webmaster:
     name: "Webmaster"
+    Rules: [Public, Private]
 
 Table_Rule:
   Public:
     name: "открытая страница"
   Private:
     name: "закрытая страница"
-
-Table_Access:
-  user_on_public:
-    role_id: 1
-    rule_id: 1
-  admin_on_public:
-    role_id: 2
-    rule_id: 1
-  admin_on_private:
-    role_id: 2
-    rule_id: 2

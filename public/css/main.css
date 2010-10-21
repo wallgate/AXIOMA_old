@@ -5,12 +5,39 @@ body {
     color: #000;
 }
 
+
 .topArea {
-    padding: 20px;
-    border-bottom: 1px solid #808080;
-    background-color: #eee;
+    padding: 20px 30px; padding-bottom: 0;
+    background-color: #FFCE6D;
+    height: 60px;
 }
+.topArea p { margin-bottom: 15px; }
+
+.navigation {
+    list-style: none;
+}
+.navigation li {
+    float: left;
+    display: block;
+    margin-right: 5px;
+    border: solid #92B5EB; border-width: 3px 1px 0;
+    position: relative;
+}
+.navigation li a {
+    display: block;
+    padding: 3px 7px;
+    background-color: #fff;
+    text-decoration: none;
+}
+.navigation li ul {
+    position: absolute;
+    list-style: none;
+    top: 23px; left: 0;
+    border: 1px solid #92B5EB;
+}
+.navigation li ul li { border: none; position: relative; margin: 0; display: block; width: 120px; }
+.navigation li ul li a { display: block; }
 
 .main {
-    padding: 20px;
+    padding: 20px 30px;
 }

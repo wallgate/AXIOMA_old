@@ -30,7 +30,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action
 
     protected function accessControl($auth)
     {
-        $acl      = new App_Acl($auth);
+        $acl = Zend_Registry::get('ACL');
         
         $role     = $auth->role;
         $resource = App_Acl_Resources::getResourceType($this->getRequest());

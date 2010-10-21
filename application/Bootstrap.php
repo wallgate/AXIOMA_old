@@ -12,8 +12,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         $view->headlink()->appendStylesheet('/public/css/main.css');
+        $view->headScript()->appendFile('/public/js/jquery-1.4.3.min.js');
+        $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
+        $view->headScript()->appendFile('/public/js/main.js');
+
 
         $view->addHelperPath('App/View/Helper', 'App_View_Helper');
+
+        $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Navigation.xml', 'nav');
 
         return $view;
     }
@@ -48,5 +54,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         return $connection;
     }
-}
 
+
+    public function _initAcl()
+    {
+        Zend_Registry::set('ACL', new App_Acl());
+    }
+}

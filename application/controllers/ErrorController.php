@@ -2,6 +2,11 @@
 
 class ErrorController extends Zend_Controller_Action
 {
+    public function preDispatch()
+    {
+        $this->_helper->layout()->setLayout('error');
+    }
+
 
     public function errorAction()
     {
@@ -46,6 +51,5 @@ class ErrorController extends Zend_Controller_Action
 
     public function restrictedAction()
     {
-        $this->_helper->layout()->disableLayout();
     }
 }
