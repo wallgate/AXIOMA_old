@@ -38,6 +38,17 @@ body {
 .navigation li ul li { border: none; position: relative; margin: 0; display: block; width: 120px; }
 .navigation li ul li a { display: block; }
 
+
+
+.loginArea {
+    width: 210px; height: 80px;
+    position: absolute;
+    top: 40%; left: 40%;
+}
+.loginArea td { padding-right: 7px; }
+.loginArea .submit { margin-top: 5px; }
+
+
 .main {
     padding: 20px 30px;
 }

@@ -22,6 +22,8 @@ $(function()
     $('a.tabSwitcher').click(function()
     {
         var index = $('a.tabSwitcher').index(this);
+        if ($('.dispayGroup').eq(index).is(':visible'))
+            return false;
         showTab(index);
         return false;
     })

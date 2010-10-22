@@ -22,9 +22,9 @@ User:
     birthdate: date
     hiredate: date
     firedate: date
-    marital: varchar(30)
+    marital: string(30)
     #сделать enum
-    children: varchar(200)
+    children: string(500)
     role:
       type: integer
       default: 1

@@ -14,10 +14,6 @@ class AdminController extends App_Controller_Action
                 $userTable = new Table_User();
                 $userTable->insertUser($this->getRequest()->getParams());
             }
-            else
-            {
-                var_dump($this->view->userForm->getMessages());
-            }
         }
     }
 }
