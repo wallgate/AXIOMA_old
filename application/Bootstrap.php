@@ -12,8 +12,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         $view->headlink()->appendStylesheet('/public/css/main.css');
+        $view->headlink()->appendStylesheet('/public/css/jquery-ui-1.8.5.css');
         $view->headScript()->appendFile('/public/js/jquery-1.4.3.min.js');
         $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
+        $view->headScript()->appendFile('/public/js/jquery-ui-1.8.5.min.js');
         $view->headScript()->appendFile('/public/js/main.js');
 
         $view->addHelperPath('App/View/Helper', 'App_View_Helper');
