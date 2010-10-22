@@ -41,3 +41,18 @@ body {
 .main {
     padding: 20px 30px;
 }
+
+
+.main form { width: 550px; }
+
+form .dispayGroup { margin-top: 30px; padding: 10px; }
+.tabSwitcher { margin-right: 10px; }
+
+form.contentForm table td { padding: 3px; }
+form.contentForm table td.col1 { width: 200px; }
+form.contentForm table td.col1 .description { color: #808080; line-height: 12px; }
+
+form input, form select { border: 1px solid #000; padding: 2px; }
+form.contentForm input, form.contentForm select { width: 300px; }
+form input:focus { border: 1px solid #3d77cb; line-height: 12px; }
+form input.submit { width: auto; cursor: pointer; display: block; margin: auto; }

@@ -1,15 +1,15 @@
 Table_User:
   User:
     login: "user"
-    password: "63a9f0ea7bb98050796b649e85481845"
-    name: Сергей
-    surname: Магомедов
+    password: "root"
+    firstname: Вова
+    lastname: Романов
     Role: User
   Admin:
     login: "admin"
-    password: "63a9f0ea7bb98050796b649e85481845"
-    name: Жора
-    surname: Иванов
+    password: "root"
+    firstname: Слава
+    lastname: Васильев
     Role: Webmaster
 
 

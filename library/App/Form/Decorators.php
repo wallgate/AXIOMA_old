@@ -6,18 +6,20 @@ class App_Form_Decorators
     {
         return array(
             'ViewHelper',
-            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td')),
-            array('Label', array('tag'=>'td','placement'=>'prepend')),
-            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr')),
+            'Errors',
+            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'valign'=>'top')),
+            array('InfoCell', array('tag'=>'td', 'placement'=>'prepend', 'wrapperClass'=>'col1')),
+            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr'))
         );
     }
+
 
     public static function buttonDecorators()
     {
         return array(
             'ViewHelper',
             array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'colspan'=>2, 'align'=>'center')),
-            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr')),
+            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr'))
         );
     }
 
@@ -30,4 +32,14 @@ class App_Form_Decorators
             'Form'
         );
     }
+
+
+    public static function displayGroupDecorators()
+    {
+        return array(
+            'FormElements',
+            array('HtmlTag', array('tag'=>'table', 'class'=>'displayGroup')),
+        );
+    }
+
 }
