@@ -12,7 +12,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         $view->headlink()->appendStylesheet('/public/css/main.css');
-        $view->headlink()->appendStylesheet('/public/css/jquery-ui-1.8.5.css');
         $view->headScript()->appendFile('/public/js/jquery-1.4.3.min.js');
         $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
         $view->headScript()->appendFile('/public/js/main.js');
@@ -90,10 +89,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $router = Zend_Controller_Front::getInstance()->getRouter();
 
-        $router->addRoute('showUser', new Zend_Controller_Router_Route(
+        $router->addRoute('logout', new Zend_Controller_Router_Route(
+            '/logout', array('controller'=>'login', 'action'=>'logout')
+        ));
+
+        $router->addRoute('showUsers', new Zend_Controller_Router_Route(
+            '/employee/list/:status', array('controller'=>'employee', 'action'=>'list', 'status'=>$status)
+        ));
+        $router->addRoute('showUserForm', new Zend_Controller_Router_Route(
             '/employee/form/:login', array('controller'=>'employee', 'action'=>'form', 'login'=>$login)
         ));
-        $router->addRoute('delUser', new Zend_Controller_Router_Route(
+        $router->addRoute('deleteUser', new Zend_Controller_Router_Route(
             '/employee/delete/:login', array('controller'=>'employee', 'action'=>'delete', 'login'=>$login)
         ));
 
