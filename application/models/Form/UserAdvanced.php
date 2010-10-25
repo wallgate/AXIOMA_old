@@ -4,6 +4,12 @@ class Form_UserAdvanced extends Zend_Form
 {
     public function __construct($user)
     {
+        $summaryDestination = APPLICATION_PATH.'/views/assets/summary';
+        if (!is_dir(APPLICATION_PATH.'/views/assets'))
+            mkdir(APPLICATION_PATH.'/views/assets');
+        if (!is_dir($summaryDestination))
+            mkdir($summaryDestination);
+
         // учётная запись
         $login = new Zend_Form_Element_Text('login');
         $login->setLabel('Логин')
@@ -57,7 +63,7 @@ class Form_UserAdvanced extends Zend_Form
 
         $summary = new Zend_Form_Element_File('summary');
         $summary->setLabel('Файл резюме')
-                ->setDestination(ROOT.'/public/uploads/summary');
+                ->setDestination($summaryDestination);
 
         // личные данные
         $firstname = new Zend_Form_Element_Text('firstname');
