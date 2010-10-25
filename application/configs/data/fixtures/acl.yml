@@ -1,21 +1,25 @@
 Table_User:
   User:
-    login: "user"
+    login: "developer"
     password: "root"
-    firstname: Вова
+    firstname: Владимир
+    midname: Петрович
     lastname: Романов
-    Role: Programmer
+    hiredate: "2010-01-11"
+    Role: Employee
   Admin:
     login: "admin"
     password: "root"
-    firstname: Слава
+    firstname: Вячеслав
+    midname: Алексеевич
     lastname: Васильев
+    hiredate: "2010-01-11"
     Role: Webmaster
 
 
 Table_Role:
-  Programmer:
-    name: "Программист"
+  Employee:
+    name: "Сотрудник"
     Rules: [Public]
   Webmaster:
     name: "Вебмастер"

@@ -5,6 +5,10 @@ class Table_User extends Table_Base_User
     const ERROR_USER_NOT_FOUND = 1;
     const ERROR_WRONG_PASSWORD = 2;
 
+    const STATUS_ACTIVE  = 'active';
+    const STATUS_RETIRED = 'retired';
+    const STATUS_TRIAL   = 'trial';
+
     
     /**
      * временно. убрать нафиг
@@ -39,13 +43,28 @@ class Table_User extends Table_Base_User
     }
 
 
-    public function getUsers()
+    public function getUsers($status = null)
     {
-        return Doctrine_Query::create()
-                             ->select('firstname, lastname, login, r.name')
-                             ->from('Table_User u, u.Role r')
-                             ->orderBy('lastname')
-                             ->fetchArray();
+        $users = Doctrine_Query::create()
+                               ->select('firstname, lastname, login, r.name')
+                               ->from('Table_User u, u.Role r');
+
+        switch ($status)
+        {
+            case self::STATUS_ACTIVE:
+                $users = $users->where('u.hiredate IS NOT NULL')
+                               ->addWhere('u.retiredate IS NULL');
+                break;
+            case self::STATUS_RETIRED:
+                $users = $users->where('u.retiredate IS NOT NULL');
+                break;
+            case self::STATUS_TRIAL:
+                $users = $users->where('u.hiredate IS NULL');
+                break;
+        }
+
+        return $users->orderBy('lastname')
+                     ->fetchArray();
     }
 
     public function getUserByLogin($login)

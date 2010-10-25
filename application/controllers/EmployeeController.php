@@ -4,6 +4,7 @@ class EmployeeController extends App_Controller_Action
 {
     public function  preDispatch()
     {
+        $this->view->headlink()->appendStylesheet('/public/css/jquery-ui-1.8.5.css');
         $this->view->headScript()->appendFile('/public/js/jquery-ui-1.8.5.min.js');
         $this->view->headScript()->appendFile('/public/js/jquery.maskedinput.js');
     }
@@ -11,7 +12,8 @@ class EmployeeController extends App_Controller_Action
     public function listAction()
     {
         $userTable = new Table_User();
-        $this->view->users = $userTable->getUsers();
+        $status = $this->_getParam('status');
+        $this->view->users = $userTable->getUsers($status);
     }
 
     public function formAction()
