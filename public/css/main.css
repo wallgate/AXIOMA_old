@@ -10,7 +10,7 @@ p { margin-bottom: 18px; }
 .topArea {
     padding: 20px 30px; padding-bottom: 0;
     background-color: #FFCE6D;
-    height: 60px;
+    height: 79px;
 }
 .topArea p { margin-bottom: 15px; }
 
@@ -51,6 +51,9 @@ p { margin-bottom: 18px; }
 }
 .navigation li ul li a {
     display: block;
+}
+.navigation li ul li a:hover{
+    color: #92B5EB;
 }
 
 

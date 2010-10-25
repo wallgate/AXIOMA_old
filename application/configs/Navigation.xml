@@ -5,6 +5,13 @@
             <label>Моя страница</label>
             <uri>/index/index</uri>
             <rule>1</rule>
+            <pages>
+                <profile>
+                    <label>Редактирование профиля</label>
+                    <uri>/profile/edit</uri>
+                    <rule>1</rule>
+                </profile>
+            </pages>
         </home>
         <data>
             <label>Справочники</label>
