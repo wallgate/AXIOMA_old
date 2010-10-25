@@ -7,6 +7,9 @@
     <td>
         <?= $this->Role['name'] ?>
     </td>
+    <td>
+        <?= $this->last_login_at ? $this->last_login_at : 'никогда' ?>
+    </td>
     <td width="60">
         <? if ($this->login != Zend_Auth::getInstance()->getIdentity()->login) { ?>
             <a href="/employee/delete/<?= $this->login ?>" class="delete">удалить</a>

@@ -38,10 +38,17 @@ class Table_User extends Table_Base_User
     }
 
 
+    /**
+     * Формирует список пользователей, выбирая из по статусу (работающие,
+     * бывшие сотрудники, на испытательном сроке)
+     *
+     * @param string $status статус искомых пользователей
+     * @return array
+     */
     public function getUsers($status = null)
     {
         $users = Doctrine_Query::create()
-                               ->select('firstname, lastname, login, r.name')
+                               ->select('firstname, lastname, login, last_login_at, r.name')
                                ->from('Table_User u, u.Role r');
 
         switch ($status)

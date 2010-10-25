@@ -24,6 +24,7 @@
  * @property string $marital
  * @property string $children
  * @property integer $role
+ * @property datetime $last_login_at
  * @property Table_Role $Role
  * 
  * @package    ##PACKAGE##
@@ -109,6 +110,9 @@ abstract class Table_Base_User extends Doctrine_Record
              'type' => 'integer',
              'default' => 1,
              ));
+        $this->hasColumn('last_login_at', 'datetime', null, array(
+             'type' => 'datetime',
+             ));
 
         $this->option('type', 'INNODB');
         $this->option('collate', 'utf8_general_ci');
@@ -121,5 +125,19 @@ abstract class Table_Base_User extends Doctrine_Record
         $this->hasOne('Table_Role as Role', array(
              'local' => 'role',
              'foreign' => 'id'));
+
+        $timestampable0 = new Doctrine_Template_Timestampable(array(
+             'created' => 
+             array(
+              'name' => 'created_at',
+              'type' => 'timestamp',
+              'format' => 'Y-m-d H:i',
+             ),
+             'updated' => 
+             array(
+              'disabled' => true,
+             ),
+             ));
+        $this->actAs($timestampable0);
     }
 }

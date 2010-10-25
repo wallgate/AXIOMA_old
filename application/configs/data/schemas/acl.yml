@@ -6,6 +6,14 @@ options:
 
 User:
   tableName: sys_users
+  actAs:
+    Timestampable:
+      created:
+        name: created_at
+        type: timestamp
+        format: Y-m-d H:i
+      updated:
+        disabled: true
   columns:
     firstname: string(25)
     midname: string(25)
@@ -29,6 +37,7 @@ User:
     role:
       type: integer
       default: 1
+    last_login_at: datetime
   relations:
     Role:
       local: role
