@@ -11,11 +11,6 @@ class Table_User extends Table_Base_User
 
     
     /**
-     * временно. убрать нафиг
-     */
-    private static $updated = false;
-
-    /**
      * Ищет пользователя по логину и паролю.
      * Выбрасывает исключение, если пользователь не найден или пароль не совпадает.
      * @param string $login
@@ -129,21 +124,12 @@ class Table_User extends Table_Base_User
 
         if ($values['password'])
         {
-            self::$updated = true;
+            $user->salt = time();
+            $user->password = md5( md5($this->password) . $this->salt );
         }
 
         $user->save();
     }
-
-    public function preUpdate($event)
-    {
-        if (Table_User::$updated)
-        {
-            $this->salt = time();
-            $this->password = md5( md5($this->password) . $this->salt );
-        }
-    }
-
 
 
     public static function deleteUser($login)
