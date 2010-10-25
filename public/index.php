@@ -1,7 +1,8 @@
 <?php
 
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+define('ROOT', realpath(dirname(__FILE__).'/..'));
+
+define('APPLICATION_PATH', ROOT.'/application');
 
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));

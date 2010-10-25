@@ -1,0 +1,12 @@
+<tr>
+    <td width="200">
+        <a href="/role/form/<?= $this->name ?>">
+            <?= $this->name ?>
+        </a>
+    </td>
+    <td width="60">
+        <? if ($this->name != Zend_Auth::getInstance()->getIdentity()->Role->name) { ?>
+            <a href="/role/delete/<?= $this->name ?>" class="delete">удалить</a>
+        <? } ?>
+    </td>
+</tr>

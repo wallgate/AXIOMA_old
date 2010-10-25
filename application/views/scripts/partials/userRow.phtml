@@ -1,6 +1,6 @@
 <tr>
     <td width="200">
-        <a href="/admin/employee/<?= $this->login ?>">
+        <a href="/employee/form/<?= $this->login ?>">
             <?= $this->lastname ?>&nbsp;<?= $this->firstname ?>
         </a>
     </td>
@@ -9,7 +9,7 @@
     </td>
     <td width="60">
         <? if ($this->login != Zend_Auth::getInstance()->getIdentity()->login) { ?>
-            <a href="/admin/delemployee/<?= $this->login ?>" class="delete">удалить</a>
+            <a href="/employee/delete/<?= $this->login ?>" class="delete">удалить</a>
         <? } ?>
     </td>
 </tr>

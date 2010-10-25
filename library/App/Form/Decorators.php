@@ -2,6 +2,17 @@
 
 class App_Form_Decorators
 {
+    public static function inputDecoratorsLogin()
+    {
+        return array(
+            'ViewHelper',
+            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'valign'=>'top')),
+            array('Label', array('tag'=>'td', 'placement'=>'prepend')),
+            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr', 'valign'=>'top'))
+        );
+    }
+
+
     public static function inputDecorators()
     {
         return array(
@@ -20,6 +31,18 @@ class App_Form_Decorators
             'ViewHelper',
             array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'colspan'=>2, 'align'=>'center')),
             array(array('trTag'=>'HtmlTag'), array('tag'=>'tr'))
+        );
+    }
+
+
+    public static function fileDecorators()
+    {
+        return array(
+            'File',
+            'Errors',
+            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'valign'=>'top')),
+            array('InfoCell', array('tag'=>'td', 'placement'=>'prepend', 'wrapperClass'=>'col1')),
+            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr', 'valign'=>'top'))
         );
     }
 

@@ -91,10 +91,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router = Zend_Controller_Front::getInstance()->getRouter();
 
         $router->addRoute('showUser', new Zend_Controller_Router_Route(
-            '/admin/employee/:login', array('controller'=>'admin', 'action'=>'employee', 'login'=>$login)
+            '/employee/form/:login', array('controller'=>'employee', 'action'=>'form', 'login'=>$login)
         ));
         $router->addRoute('delUser', new Zend_Controller_Router_Route(
-            '/admin/delemployee/:login', array('controller'=>'admin', 'action'=>'delemployee', 'login'=>$login)
+            '/employee/delete/:login', array('controller'=>'employee', 'action'=>'delete', 'login'=>$login)
         ));
 
     }

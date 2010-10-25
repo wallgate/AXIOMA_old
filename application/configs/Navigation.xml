@@ -18,21 +18,38 @@
             <pages>
                 <employee>
                     <label>Сотрудники</label>
-                    <uri>/admin/employeelist</uri>
+                    <uri>/employee/list</uri>
                     <rule>2</rule>
                     <pages>
                         <employeeform>
                             <label>Добавление / редактирование сотрудника</label>
-                            <uri>/admin/employee</uri>
+                            <uri>/employee/form</uri>
                             <rule>2</rule>
                         </employeeform>
                         <deleteuser>
                             <label>Удаление сотрудника</label>
-                            <uri>/admin/delemployee</uri>
+                            <uri>/employee/delete</uri>
                             <rule>2</rule>
                         </deleteuser>
                     </pages>
                 </employee>
+                <roles>
+                    <label>Должности</label>
+                    <uri>/role/list</uri>
+                    <rule>2</rule>
+                    <pages>
+                        <roleform>
+                            <label>Добавление / редактирование должности</label>
+                            <uri>/role/form</uri>
+                            <rule>2</rule>
+                        </roleform>
+                        <deleterole>
+                            <label>Удаление должности</label>
+                            <uri>/role/delete</uri>
+                            <rule>2</rule>
+                        </deleterole>
+                    </pages>
+                </roles>
             </pages>
         </admin>
     </nav>

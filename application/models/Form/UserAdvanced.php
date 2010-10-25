@@ -10,7 +10,11 @@ class Form_UserAdvanced extends Zend_Form
               ->setDescription('от 5 до 20 символов')
               ->addFilter(new Zend_Filter_StringTrim())
               ->addValidator(new Zend_Validate_StringLength(5,20))
-              ->addValidator(new App_Validate_LoginUnique(array('table'=>'Table_User', 'field'=>'login')))
+              ->addValidator(new App_Validate_LoginUnique(array(
+                  'table'   => 'Table_User',
+                  'field'   => 'login',
+                  'exclude' => array($user['login'])
+              )))
               ->setRequired();
 
         $password = new Zend_Form_Element_Password('password');
@@ -50,6 +54,10 @@ class Form_UserAdvanced extends Zend_Form
         $retiredate = new Zend_Form_Element_Text('retiredate');
         $retiredate->setLabel('Дата увольнения')
                    ->setOptions(array('class'=>'datePicker'));
+
+        $summary = new Zend_Form_Element_File('summary');
+        $summary->setLabel('Файл резюме')
+                ->setDestination(ROOT.'/public/uploads/summary');
 
         // личные данные
         $firstname = new Zend_Form_Element_Text('firstname');
@@ -96,11 +104,12 @@ class Form_UserAdvanced extends Zend_Form
 
         $this->addPrefixPath('App_Form', 'App/Form');
 
-        $this->setDecorators(array('FormElements', 'Form'))
+        $this->setEnctype('multipart/form-data')
+             ->setDecorators(array('FormElements', 'Form'))
              ->setAttrib('class', 'contentForm')
              ->addElements(array(
                     $login, $password, $confirmation,
-                    $role, $email, $hiredate, $retiredate,
+                    $role, $email, $hiredate, $retiredate, $summary,
                     $firstname, $midname, $lastname, $birthdate,
                     $cellphone, $homephone, $addressreg, $addressfact,
                     $marital, $children
@@ -127,6 +136,8 @@ class Form_UserAdvanced extends Zend_Form
             }
         }
 
+        $summary->setDecorators(App_Form_Decorators::fileDecorators());
+
         $submit = new Zend_Form_Element_Submit('Сохранить');
         $submit->setDecorators(array('ViewHelper'))
                ->setIgnore(true)
@@ -148,7 +159,8 @@ class Form_UserAdvanced extends Zend_Form
         $this->addDisplayGroup(array(
             'role',
             'email',
-            'hiredate', 'retiredate'
+            'hiredate', 'retiredate',
+            'summary'
         ), 'job', array('legend' => 'Служебные данные'));
 
         $this->addDisplayGroup(array(

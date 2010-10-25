@@ -1,0 +1,12 @@
+<p><a href="/role/form">добавить должность</a></p>
+
+<? if (count($this->roles)) { ?>
+<table class="stripedTable">
+    <?= $this->partialLoop('partials/roleRow.phtml', $this->roles) ?>
+</table>
+<? } ?>
+
+<div class="confirm">
+    <a href="#" class="yes">да</a>
+    <a href="#" class="no">отмена</a>
+</div>

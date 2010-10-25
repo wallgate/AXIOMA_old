@@ -13,6 +13,7 @@
  * @property string $salt
  * @property string $email
  * @property string $avatar
+ * @property string $summary
  * @property string $homephone
  * @property string $cellphone
  * @property string $addressreg
@@ -66,6 +67,10 @@ abstract class Table_Base_User extends Doctrine_Record
         $this->hasColumn('avatar', 'string', 250, array(
              'type' => 'string',
              'length' => '250',
+             ));
+        $this->hasColumn('summary', 'string', 150, array(
+             'type' => 'string',
+             'length' => '150',
              ));
         $this->hasColumn('homephone', 'string', 15, array(
              'type' => 'string',

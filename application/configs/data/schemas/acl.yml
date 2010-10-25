@@ -15,6 +15,7 @@ User:
     salt: string(12)
     email: string(30)
     avatar: string(250)
+    summary: string(150)
     homephone: string(15)
     cellphone: string(15)
     addressreg: string(100)

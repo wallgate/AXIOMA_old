@@ -14,6 +14,11 @@ p { margin-bottom: 18px; }
 }
 .topArea p { margin-bottom: 15px; }
 
+
+
+
+
+
 .navigation {
     list-style: none;
 }
@@ -35,9 +40,22 @@ p { margin-bottom: 18px; }
     list-style: none;
     top: 23px; left: 0;
     border: 1px solid #92B5EB;
+    background-color: #fff;
 }
-.navigation li ul li { border: none; position: relative; margin: 0; display: block; width: 120px; }
-.navigation li ul li a { display: block; }
+.navigation li ul li {
+    border: none;
+    position: relative;
+    margin: 0;
+    display: block;
+    width: 120px;
+}
+.navigation li ul li a {
+    display: block;
+}
+
+
+
+
 
 
 
@@ -48,6 +66,11 @@ p { margin-bottom: 18px; }
 }
 .loginArea td { padding-right: 7px; }
 .loginArea .submit { margin-top: 5px; }
+
+
+
+
+
 
 
 .main {
