@@ -59,9 +59,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $layout = $this->getResource('layout');
         $view   = $layout->getView();
 
-        $navConfig       = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Navigation.xml', 'nav');
-        $view->navConfig = $navConfig;
-        $resources       = new App_Acl_Resources($navConfig);
+        $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
+
+        $resources = new App_Acl_Resources($view->navConfig);
         
         $acl = new App_Acl(Zend_Auth::getInstance()->getIdentity());
         Zend_Registry::set('ACL', $acl);
@@ -82,6 +82,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ), 'ru');
 
         Zend_Validate::setDefaultTranslator($translate);
+
+        return $translate;
     }
 
 
@@ -89,10 +91,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $router = Zend_Controller_Front::getInstance()->getRouter();
 
+        // логаут
         $router->addRoute('logout', new Zend_Controller_Router_Route(
             '/logout', array('controller'=>'login', 'action'=>'logout')
         ));
 
+        // сотрудники
         $router->addRoute('showUsers', new Zend_Controller_Router_Route(
             '/employee/list/:status', array('controller'=>'employee', 'action'=>'list', 'status'=>$status)
         ));
@@ -103,5 +107,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             '/employee/delete/:login', array('controller'=>'employee', 'action'=>'delete', 'login'=>$login)
         ));
 
+        return $router;
     }
 }
