@@ -19,9 +19,9 @@
  * @property string $addressfact
  * @property date $birthdate
  * @property date $hiredate
- * @property date $firedate
- * @property varchar $marital
- * @property varchar $children
+ * @property date $retiredate
+ * @property string $marital
+ * @property string $children
  * @property integer $role
  * @property Table_Role $Role
  * 
@@ -89,16 +89,16 @@ abstract class Table_Base_User extends Doctrine_Record
         $this->hasColumn('hiredate', 'date', null, array(
              'type' => 'date',
              ));
-        $this->hasColumn('firedate', 'date', null, array(
+        $this->hasColumn('retiredate', 'date', null, array(
              'type' => 'date',
              ));
-        $this->hasColumn('marital', 'varchar', 30, array(
-             'type' => 'varchar',
+        $this->hasColumn('marital', 'string', 30, array(
+             'type' => 'string',
              'length' => '30',
              ));
-        $this->hasColumn('children', 'varchar', 200, array(
-             'type' => 'varchar',
-             'length' => '200',
+        $this->hasColumn('children', 'string', 500, array(
+             'type' => 'string',
+             'length' => '500',
              ));
         $this->hasColumn('role', 'integer', null, array(
              'type' => 'integer',

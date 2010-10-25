@@ -9,7 +9,7 @@ class App_Form_Decorators
             'Errors',
             array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'valign'=>'top')),
             array('InfoCell', array('tag'=>'td', 'placement'=>'prepend', 'wrapperClass'=>'col1')),
-            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr'))
+            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr', 'valign'=>'top'))
         );
     }
 

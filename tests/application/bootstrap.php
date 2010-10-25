@@ -1,7 +1,5 @@
 <?
 
-error_reporting(E_ALL | E_STRICT);
-
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../application'));
 
@@ -16,7 +14,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 require_once 'Zend/Application.php';
 
 $application = new Zend_Application( APPLICATION_ENV, APPLICATION_PATH.'/configs/application.ini');
-$application->getBootstrap()->bootstrap('doctrine');
+$application->bootstrap();
 
 $config = $application->getOption('doctrine');
 

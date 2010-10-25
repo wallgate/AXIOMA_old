@@ -2,7 +2,7 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-    public function _initView()
+    protected function _initView()
     {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
@@ -15,7 +15,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headlink()->appendStylesheet('/public/css/jquery-ui-1.8.5.css');
         $view->headScript()->appendFile('/public/js/jquery-1.4.3.min.js');
         $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
-        $view->headScript()->appendFile('/public/js/jquery-ui-1.8.5.min.js');
         $view->headScript()->appendFile('/public/js/main.js');
 
         $view->addHelperPath('App/View/Helper', 'App_View_Helper');
@@ -24,7 +23,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     
-    public function _initDoctrine()
+    protected function _initDoctrine()
     {
         $this->getApplication()
              ->getAutoloader()
@@ -55,7 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
 
-    public function _initAcl()
+    protected function _initAcl()
     {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
@@ -69,5 +68,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Registry::set('ACL', $acl);
 
         return $acl;
+    }
+
+
+    protected function _initValidators()
+    {
+        $translate = new Zend_Translate('array', array(
+            Zend_Validate_NotEmpty::IS_EMPTY             => 'поле не может быть пустым',
+            Zend_Validate_StringLength::TOO_SHORT        => 'строка не должна быть короче %min% символов',
+            Zend_Validate_StringLength::TOO_LONG         => 'строка не должна быть длиннее %max% символов',
+            Zend_Validate_Identical::NOT_SAME            => 'пароли должны совпадать',
+            App_Validate_EmailAddress::INVALID_FORMAT    => 'введён некорректный адрес e-mail',
+            App_Validate_LoginUnique::ERROR_RECORD_FOUND => 'этот логин уже занят'
+        ), 'ru');
+
+        Zend_Validate::setDefaultTranslator($translate);
+    }
+
+
+    protected function _initRouter()
+    {
+        $router = Zend_Controller_Front::getInstance()->getRouter();
+
+        $router->addRoute('showUser', new Zend_Controller_Router_Route(
+            '/admin/employee/:login', array('controller'=>'admin', 'action'=>'employee', 'login'=>$login)
+        ));
+        $router->addRoute('delUser', new Zend_Controller_Router_Route(
+            '/admin/delemployee/:login', array('controller'=>'admin', 'action'=>'delemployee', 'login'=>$login)
+        ));
+
     }
 }

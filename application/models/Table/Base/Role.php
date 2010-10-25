@@ -20,9 +20,9 @@ abstract class Table_Base_Role extends Doctrine_Record
     public function setTableDefinition()
     {
         $this->setTableName('sys_roles');
-        $this->hasColumn('name', 'string', 20, array(
+        $this->hasColumn('name', 'string', 50, array(
              'type' => 'string',
-             'length' => '20',
+             'length' => '50',
              ));
 
         $this->option('type', 'INNODB');

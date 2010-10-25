@@ -9,7 +9,7 @@ class UserTest extends Zend_Test_PHPUnit_ControllerTestCase
         $user->password = 'somepass';
         $user->save();
 
-        $this->assertEquals(2, $user->id);
+        $this->assertEquals(3, $user->id);
     }
 
 

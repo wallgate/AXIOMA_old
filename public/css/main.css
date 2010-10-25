@@ -1,10 +1,11 @@
-* { padding: 0; margin: 0 }
+* { padding: 0; margin: 0; outline: none; }
 
 body {
     font: normal 12px/18px Verdana;
     color: #000;
 }
-
+p { margin-bottom: 18px; }
+.asterisk { color: #F74747; }
 
 .topArea {
     padding: 20px 30px; padding-bottom: 0;
@@ -52,9 +53,17 @@ body {
 .main {
     padding: 20px 30px;
 }
+.main h1 { font: normal 24px/30px Verdana; margin-bottom: 18px; }
+.main h3 { font: normal 20px/26px Verdana; margin-bottom: 18px; }
 
+.main ul { margin-left: 25px; }
 
 .main form { width: 550px; }
+
+.main table td { padding: 4px 8px; }
+.main table.stripedTable { width: 100%; border-spacing: 0; }
+.main table.stripedTable tr.alt { background-color: #FCF1D6; }
+
 
 form .dispayGroup { margin-top: 30px; padding: 10px; }
 .tabSwitcher { margin-right: 10px; }
@@ -63,7 +72,13 @@ form.contentForm table td { padding: 3px; }
 form.contentForm table td.col1 { width: 200px; }
 form.contentForm table td.col1 .description { color: #808080; line-height: 12px; }
 
-form input, form select { border: 1px solid #000; padding: 2px; }
-form.contentForm input, form.contentForm select { width: 300px; }
-form input:focus { border: 1px solid #3d77cb; line-height: 12px; }
+form input, form select, form textarea { border: 1px solid #000; padding: 2px; line-height: 12px; }
+form.contentForm input, form.contentForm select, form.contentForm textarea { width: 300px; }
+form input:focus, form select:focus, form textarea:focus { border: 1px solid #3d77cb; }
 form input.submit { width: auto; cursor: pointer; display: block; margin: auto; }
+form .errors { list-style: none; font-size: 10px; color: #F74747; margin: 0; }
+
+div.confirm { display: none; }
+div.confirm a { display: block; }
+div.confirm a.yes { float: left; }
+div.confirm a.no { float: right; }

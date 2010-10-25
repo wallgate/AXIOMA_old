@@ -21,7 +21,7 @@ User:
     addressfact: string(100)
     birthdate: date
     hiredate: date
-    firedate: date
+    retiredate: date
     marital: string(30)
     #сделать enum
     children: string(500)
@@ -37,7 +37,7 @@ User:
 Role:
   tableName: sys_roles
   columns:
-    name: string(20)
+    name: string(50)
   relations:
     Users:
       class: User

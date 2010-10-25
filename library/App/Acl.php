@@ -11,7 +11,6 @@ class App_Acl extends Zend_Acl
             $this->add(new Zend_Acl_Resource($resource['id']));
 
         $roles = Table_Role::getRoles();
-
         foreach ($roles as $role)
         {
             $this->addRole(new Zend_Acl_Role($role['id']));

@@ -1,0 +1,29 @@
+Table_User:
+  User:
+    login: "user"
+    password: "root"
+    firstname: "Mario"
+    lastname: "Parker"
+    Role: User
+  Admin:
+    login: "admin"
+    password: "root"
+    firstname: "John"
+    lastname: "Smith"
+    Role: Webmaster
+
+
+Table_Role:
+  User:
+    name: "User"
+    Rules: [Public]
+  Webmaster:
+    name: "Webmaster"
+    Rules: [Public, Private]
+
+
+Table_Rule:
+  Public:
+    name: "public page"
+  Private:
+    name: "private page"

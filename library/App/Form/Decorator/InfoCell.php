@@ -6,6 +6,10 @@ class App_Form_Decorator_InfoCell extends Zend_Form_Decorator_Abstract
     {
         $label       = $this->getElement()->getLabel();
         $description = $this->getElement()->getDescription();
+        $required    = $this->getElement()->isRequired();
+
+        if ($required) $label .= ' <span class="asterisk">*</span>';
+        
         $infoCell    = $label . '<br/><small class="description">' . $description . '</small>';
         
         $placement   = $this->getPlacement();

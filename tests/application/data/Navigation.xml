@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <home>
+            <label>Моя страница</label>
+            <uri>/index/index</uri>
+            <rule>1</rule>
+        </home>
+        <admin>
+            <label>Админство</label>
+            <uri>/admin/index</uri>
+            <rule>2</rule>
+            <pages>
+                <people>
+                    <label>Люди</label>
+                    <uri>/admin/people</uri>
+                    <rule>2</rule>
+                </people>
+                <groups>
+                    <label>Группы</label>
+                    <uri>/admin/groups</uri>
+                    <rule>2</rule>
+                </groups>
+                <projects>
+                    <label>Проекты</label>
+                    <uri>/admin/projects</uri>
+                    <rule>2</rule>
+                </projects>
+            </pages>
+        </admin>
+    </nav>
+</configdata>

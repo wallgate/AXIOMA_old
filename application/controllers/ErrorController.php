@@ -2,17 +2,11 @@
 
 class ErrorController extends Zend_Controller_Action
 {
-    public function preDispatch()
-    {
-        $this->_helper->layout()->setLayout('error');
-    }
-
-
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
 
-        if ($errors->exception->getMessage() == App_Controller_Action::ERROR_RESTRICTED)
+        if ($errors->exception instanceof App_Exception_Restricted)
             return $this->_forward('restricted');
 
         switch ($errors->type) {
@@ -20,36 +14,24 @@ class ErrorController extends Zend_Controller_Action
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                 $this->getResponse()->setHttpResponseCode(404);
-                $this->view->message = 'Page not found';
+                $this->view->message = 'Страница не найдена';
                 break;
             default:
                 $this->getResponse()->setHttpResponseCode(500);
-                $this->view->message = 'Application error';
+                $this->view->message = 'Ошибка приложения';
                 break;
-        }
-
-        if ($log = $this->getLog()) {
-            $log->crit($this->view->message, $errors->exception);
         }
 
         if ($this->getInvokeArg('displayExceptions') == true) {
             $this->view->exception = $errors->exception;
         }
 
-        $this->view->request   = $errors->request;
+        $this->view->request = $errors->request;
     }
 
-    public function getLog()
-    {
-        $bootstrap = $this->getInvokeArg('bootstrap');
-        if (!$bootstrap->hasResource('Log')) {
-            return false;
-        }       
-        $log = $bootstrap->getResource('Log');
-        return $log;
-    }
 
     public function restrictedAction()
     {
+        $this->getResponse()->setHttpResponseCode(500);
     }
 }

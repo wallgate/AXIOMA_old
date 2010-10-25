@@ -2,56 +2,96 @@
 
 class Form_UserAdvanced extends Zend_Form
 {
-    public function __construct()
+    public function __construct($user)
     {
+        // учётная запись
         $login = new Zend_Form_Element_Text('login');
         $login->setLabel('Логин')
               ->setDescription('от 5 до 20 символов')
-              ->setRequired(true)
-              ->addValidator('StringLength', false, array(5,30));
+              ->addFilter(new Zend_Filter_StringTrim())
+              ->addValidator(new Zend_Validate_StringLength(5,20))
+              ->addValidator(new App_Validate_LoginUnique(array('table'=>'Table_User', 'field'=>'login')))
+              ->setRequired();
 
         $password = new Zend_Form_Element_Password('password');
         $password->setLabel('Пароль')
                  ->setDescription('от 6 до 20 символов')
-                 ->addValidator('StringLength', false, array(6,20))
-                 ->setRequired(true);
+                 ->addFilter(new Zend_Filter_StringTrim())
+                 ->addValidator(new Zend_Validate_StringLength(6,20));
 
         $confirmation = new Zend_Form_Element_Password('confirmation');
         $confirmation->setLabel('Подтверждение пароля')
-                     ->addValidator('StringLength', false, array(6,20))
-                     ->setRequired(true);
+                     ->addFilter(new Zend_Filter_StringTrim())
+                     ->addValidator(new Zend_Validate_Identical('password'))
+                     ->getIgnore(true);
+
+        if (!$user)
+        {
+            $password->setRequired();
+            $confirmation->setRequired();
+        }
+
+        // служебные данные
+        $roles = Table_Role::getRolesFromCache();
+        foreach ($roles as $role)
+            $roleOptions[$role['id']] = $role['name'];
+        $role = new Zend_Form_Element_Select('role');
+        $role->setLabel('Должность')
+             ->setMultiOptions($roleOptions);
 
         $email = new Zend_Form_Element_Text('email');
-        $email->setLabel('Email')
-              ->addValidator('StringLength', false, array(5,30))
-              ->addValidator(new Zend_Validate_EmailAddress())
-              ->setRequired(true);
+        $email->setLabel('Служебный e-mail')
+              ->addValidator(new App_Validate_EmailAddress());
 
+        $hiredate = new Zend_Form_Element_Text('hiredate');
+        $hiredate->setLabel('Дата приёма на работу')
+                 ->setOptions(array('class'=>'datePicker'));
 
-        
+        $retiredate = new Zend_Form_Element_Text('retiredate');
+        $retiredate->setLabel('Дата увольнения')
+                   ->setOptions(array('class'=>'datePicker'));
 
-
+        // личные данные
         $firstname = new Zend_Form_Element_Text('firstname');
         $firstname->setLabel('Имя')
-                  ->addValidator('StringLength', false, array(2,50))
                   ->addFilter(new Zend_Filter_StringTrim())
-                  ->setRequired(true);
+                  ->setRequired();
 
         $midname = new Zend_Form_Element_Text('midname');
         $midname->setLabel('Отчество')
-                ->addValidator('StringLength', false, array(2,50))
-                ->addFilter(new Zend_Filter_StringTrim());
+                ->addFilter(new Zend_Filter_StringTrim())
+                ->setRequired();
 
         $lastname = new Zend_Form_Element_Text('lastname');
         $lastname->setLabel('Фамилия')
-                 ->addValidator('StringLength', false, array(2,50))
                  ->addFilter(new Zend_Filter_StringTrim())
-                 ->setRequired(true);
+                 ->setRequired();
 
         $birthdate = new Zend_Form_Element_Text('birthdate');
         $birthdate->setLabel('Дата рождения')
-                  ->setOptions(array('class'=>'datePicker'))
-                  ->addValidator('StringLength', false, array(3,30));
+                  ->setOptions(array('class'=>'datePicker'));
+
+        $cellphone = new Zend_Form_Element_Text('cellphone');
+        $cellphone->setLabel('Сотовый телефон')
+                  ->setOptions(array('class'=>'cellphone'));
+
+        $homephone = new Zend_Form_Element_Text('homephone');
+        $homephone->setLabel('Домашний телефон')
+                  ->setOptions(array('class'=>'homephone'));
+
+        $addressreg = new Zend_Form_Element_Text('addressreg');
+        $addressreg->setLabel('Адрес прописки');
+
+        $addressfact = new Zend_Form_Element_Text('addressfact');
+        $addressfact->setLabel('Адрес проживания');
+
+        $marital = new Zend_Form_Element_Text('marital');
+        $marital->setLabel('Семейное положение');
+
+        $children = new Zend_Form_Element_Textarea('children');
+        $children->setLabel('Дети')
+                 ->setAttrib('rows', 4);
+
 
 
         $this->addPrefixPath('App_Form', 'App/Form');
@@ -59,23 +99,38 @@ class Form_UserAdvanced extends Zend_Form
         $this->setDecorators(array('FormElements', 'Form'))
              ->setAttrib('class', 'contentForm')
              ->addElements(array(
-                    $firstname,
-                    $midname,
-                    $lastname,
-                    $email,
-                    $login,
-                    $password,
-                    $confirmation,
-                    $birthdate
+                    $login, $password, $confirmation,
+                    $role, $email, $hiredate, $retiredate,
+                    $firstname, $midname, $lastname, $birthdate,
+                    $cellphone, $homephone, $addressreg, $addressfact,
+                    $marital, $children
                 ));
 
         $this->setElementDecorators(App_Form_Decorators::inputDecorators())
+             ->setAttrib('id', 'formUserAdvanced')
              ->defineDisplayGroups();
+
+        if ($user)
+        {
+            if ($user instanceof Table_User) $user = $user->toArray();
+
+            if (is_array($user))
+            {
+                if (!empty($user['birthdate']))
+                    $user['birthdate'] = $this->dateToString($user['birthdate']);
+                if (!empty($user['hiredate']))
+                    $user['hiredate'] = $this->dateToString($user['hiredate']);
+                if (!empty($user['retiredate']))
+                    $user['retiredate'] = $this->dateToString($user['retiredate']);
+
+                $this->populate($user);
+            }
+        }
 
         $submit = new Zend_Form_Element_Submit('Сохранить');
         $submit->setDecorators(array('ViewHelper'))
+               ->setIgnore(true)
                ->setAttribs(array('id'=>'submit', 'class'=>'submit'));
-
         $this->addElement($submit);
     }
 
@@ -87,22 +142,21 @@ class Form_UserAdvanced extends Zend_Form
     {
         $this->addDisplayGroup(array(
             'login',
-            'password',
-            'confirmation',
-            'email'
+            'password', 'confirmation',
         ), 'basic', array('legend' => 'Учётная запись'));
         
         $this->addDisplayGroup(array(
-            'firstname',
-            'midname',
-            'lastname',
-            'birthdate'
-        ), 'full', array('legend' => 'Подробно'));
+            'role',
+            'email',
+            'hiredate', 'retiredate'
+        ), 'job', array('legend' => 'Служебные данные'));
 
         $this->addDisplayGroup(array(
-            'birthdate'
-        ), 'avatar', array('legend' => 'Фото'));
-
+            'firstname', 'midname', 'lastname',
+            'birthdate',
+            'cellphone', 'homephone', 'addressreg', 'addressfact',
+            'marital', 'children'
+        ), 'private', array('legend' => 'Личные данные'));
 
         
         $this->setDisplayGroupDecorators(array(
@@ -123,5 +177,16 @@ class Form_UserAdvanced extends Zend_Form
             $headlines[$displayGroup->getName()] = array('legend' => $displayGroup->getLegend());
 
         return $headlines;
+    }
+
+
+
+
+
+    
+    private function dateToString($date)
+    {
+        $tempDate = array_reverse(explode('-', $date));
+        return implode('.', $tempDate);
     }
 }

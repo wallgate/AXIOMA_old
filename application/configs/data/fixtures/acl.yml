@@ -4,7 +4,7 @@ Table_User:
     password: "root"
     firstname: Вова
     lastname: Романов
-    Role: User
+    Role: Programmer
   Admin:
     login: "admin"
     password: "root"
@@ -14,11 +14,11 @@ Table_User:
 
 
 Table_Role:
-  User:
-    name: "User"
+  Programmer:
+    name: "Программист"
     Rules: [Public]
   Webmaster:
-    name: "Webmaster"
+    name: "Вебмастер"
     Rules: [Public, Private]
 
 Table_Rule:

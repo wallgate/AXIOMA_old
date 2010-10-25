@@ -6,26 +6,33 @@
             <uri>/index/index</uri>
             <rule>1</rule>
         </home>
+        <data>
+            <label>Справочники</label>
+            <uri>/data/index</uri>
+            <rule>1</rule>
+        </data>
         <admin>
-            <label>Админство</label>
+            <label>Администрирование</label>
             <uri>/admin/index</uri>
             <rule>2</rule>
             <pages>
-                <people>
-                    <label>Люди</label>
-                    <uri>/admin/people</uri>
+                <employee>
+                    <label>Сотрудники</label>
+                    <uri>/admin/employeelist</uri>
                     <rule>2</rule>
-                </people>
-                <groups>
-                    <label>Группы</label>
-                    <uri>/admin/groups</uri>
-                    <rule>2</rule>
-                </groups>
-                <projects>
-                    <label>Проекты</label>
-                    <uri>/admin/projects</uri>
-                    <rule>2</rule>
-                </projects>
+                    <pages>
+                        <employeeform>
+                            <label>Добавление / редактирование сотрудника</label>
+                            <uri>/admin/employee</uri>
+                            <rule>2</rule>
+                        </employeeform>
+                        <deleteuser>
+                            <label>Удаление сотрудника</label>
+                            <uri>/admin/delemployee</uri>
+                            <rule>2</rule>
+                        </deleteuser>
+                    </pages>
+                </employee>
             </pages>
         </admin>
     </nav>

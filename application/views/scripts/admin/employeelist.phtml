@@ -1,0 +1,12 @@
+<p><a href="/admin/employee">добавить сотрудника</a></p>
+
+<? if (count($this->users)) { ?>
+<table class="stripedTable">
+    <?= $this->partialLoop('partials/userRow.phtml', $this->users) ?>
+</table>
+<? } ?>
+
+<div class="confirm">
+    <a href="#" class="yes">да</a>
+    <a href="#" class="no">отмена</a>
+</div>

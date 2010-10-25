@@ -9,6 +9,26 @@ $(function()
     })
 
 
+    $('.stripedTable tr:even').addClass('alt');
+
+
+/*---------------------- окошки с запросом подтверждения ---------------------*/
+
+    $('a.delete').click(function()
+    {
+        $('div.confirm').dialog({title: 'Удалить запись?'})
+                        .children('a.yes')
+                        .attr('href', $(this).attr('href'));
+        return false;
+    })
+
+    $('div.confirm a.no').click(function()
+    {
+        $('div.confirm').dialog('close');
+        return false;
+    })
+
+
 /*---------------------------------- вкладки ---------------------------------*/
 
     function showTab(index)
@@ -51,4 +71,10 @@ $(function()
         yearSuffix: ''};
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     $(".datePicker").datepicker({"changeYear" : true});
+
+
+/*-------------------------------- маски ввода -------------------------------*/
+
+    $(".cellphone").mask("8-999-999-9999");
+    $(".homephone").mask("(9999) 99-99-99");
 })

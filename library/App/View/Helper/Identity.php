@@ -8,6 +8,6 @@ class App_View_Helper_Identity extends Zend_View_Helper_Abstract
         {
             return Zend_Auth::getInstance()->getIdentity()->firstname;
         }
-        return false;
+        return NULL;
     }
 }
