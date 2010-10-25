@@ -10,7 +10,7 @@ abstract class App_Controller_Action extends Zend_Controller_Action
         $acl = Zend_Registry::get('ACL');
 
         $role = Zend_Auth::getInstance()->getIdentity()->role;
-        $rule = App_Acl_Resources::getResourceType($this->getRequest());
+        $rule = App_Acl_Resources::getResourceType($this->getRequest()->getParams());
 
         if ( !$acl->isAllowed($role, $rule) )
             throw new App_Exception_Restricted();
