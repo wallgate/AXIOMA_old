@@ -12,6 +12,13 @@ class App_View_Helper_Navigation extends Zend_View_Helper_Navigation
 
     public function headline()
     {
-        return false;
+        $request = Zend_Controller_Front::getInstance()->getRequest();
+        $controller = $request->getControllerName();
+        $action     = $request->getActionName();
+
+        $resources = App_Acl_Resources::getResources();
+        $resource = $resources['/'.$controller.'/'.$action];
+
+        return $resource['label'];
     }
 }
