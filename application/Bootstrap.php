@@ -21,7 +21,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         return $view;
     }
 
-    
+    protected function _initControllerPlugins()
+    {
+        $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin(new App_Controller_Plugin_AssetGrabber());
+    }
+
+
     protected function _initDoctrine()
     {
         $this->getApplication()
@@ -108,5 +114,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
 
         return $router;
+    }
+
+
+    protected function _initAssets()
+    {
+        $assetsConfig = $this->getOption('assets');
+        $assetsConfig['summaryPath'] = $assetsConfig['path'] . '/summary';
+
+        if (!is_dir($assetsConfig['path']))
+            mkdir($assetsConfig['path']);
+        if (!is_dir($assetsConfig['summaryPath']))
+            mkdir($assetsConfig['summaryPath']);
+
+        Zend_Controller_Front::getInstance()->setParam('assetsConfig', $assetsConfig);
     }
 }

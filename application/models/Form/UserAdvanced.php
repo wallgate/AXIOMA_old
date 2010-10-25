@@ -55,9 +55,10 @@ class Form_UserAdvanced extends Zend_Form
         $retiredate->setLabel('Дата увольнения')
                    ->setOptions(array('class'=>'datePicker'));
 
+        $assetsConfig = Zend_Controller_Front::getInstance()->getParam('assetsConfig');
         $summary = new Zend_Form_Element_File('summary');
         $summary->setLabel('Файл резюме')
-                ->setDestination(ROOT.'/public/uploads/summary');
+                ->setDestination($assetsConfig['summaryPath']);
 
         // личные данные
         $firstname = new Zend_Form_Element_Text('firstname');
@@ -155,13 +156,6 @@ class Form_UserAdvanced extends Zend_Form
             'login',
             'password', 'confirmation',
         ), 'basic', array('legend' => 'Учётная запись'));
-        
-        $this->addDisplayGroup(array(
-            'role',
-            'email',
-            'hiredate', 'retiredate',
-            'summary'
-        ), 'job', array('legend' => 'Служебные данные'));
 
         $this->addDisplayGroup(array(
             'firstname', 'midname', 'lastname',
@@ -170,7 +164,13 @@ class Form_UserAdvanced extends Zend_Form
             'marital', 'children'
         ), 'private', array('legend' => 'Личные данные'));
 
-        
+        $this->addDisplayGroup(array(
+            'role',
+            'email',
+            'hiredate', 'retiredate',
+            'summary'
+        ), 'job', array('legend' => 'Служебные данные'));
+
         $this->setDisplayGroupDecorators(array(
             'FormElements',
             array('HtmlTag', array('tag'=>'table', 'class'=>'dispayGroup'))
