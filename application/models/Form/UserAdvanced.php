@@ -62,7 +62,7 @@ class Form_UserAdvanced extends Zend_Form
 
         // личные данные
         $firstname = new Zend_Form_Element_Text('firstname');
-        $firstname->setLabel('�?мя')
+        $firstname->setLabel('Имя')
                   ->addFilter(new Zend_Filter_StringTrim())
                   ->setRequired();
 
