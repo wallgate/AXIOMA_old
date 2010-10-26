@@ -44,6 +44,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $manager->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
         $manager->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, true);
 
+        $manager->registerHydrator('app_hydrator', 'App_Doctrine_Hydrator');
+
         $dsn = sprintf("mysql://%s:%s@%s/%s",
             $dbConfig['username'],
             $dbConfig['password'],
@@ -61,9 +63,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initAcl()
     {
-        $this->bootstrap('layout');
-        $layout = $this->getResource('layout');
-        $view   = $layout->getView();
+        $this->bootstrap('view');
+        $view = $this->view;
 
         $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
 

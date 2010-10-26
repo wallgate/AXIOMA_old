@@ -4,12 +4,6 @@ class Form_UserAdvanced extends Zend_Form
 {
     public function __construct($user)
     {
-        $summaryDestination = APPLICATION_PATH.'/views/assets/summary';
-        if (!is_dir(APPLICATION_PATH.'/views/assets'))
-            mkdir(APPLICATION_PATH.'/views/assets');
-        if (!is_dir($summaryDestination))
-            mkdir($summaryDestination);
-
         // учётная запись
         $login = new Zend_Form_Element_Text('login');
         $login->setLabel('Логин')
@@ -126,21 +120,28 @@ class Form_UserAdvanced extends Zend_Form
              ->setAttrib('id', 'formUserAdvanced')
              ->defineDisplayGroups();
 
+
+        
         if ($user)
         {
-            if ($user instanceof Table_User) $user = $user->toArray();
+            $data = $user->getData();
 
-            if (is_array($user))
-            {
-                if (!empty($user['birthdate']))
-                    $user['birthdate'] = $this->dateToString($user['birthdate']);
-                if (!empty($user['hiredate']))
-                    $user['hiredate'] = $this->dateToString($user['hiredate']);
-                if (!empty($user['retiredate']))
-                    $user['retiredate'] = $this->dateToString($user['retiredate']);
+            $birthdate = $data['birthdate'];
+            $data['birthdate'] = $birthdate instanceof Zend_Date
+                ? $birthdate->get(Zend_Date::DATE_MEDIUM)
+                : null;
 
-                $this->populate($user);
-            }
+            $hiredate = $data['hiredate'];
+            $data['hiredate'] = $hiredate instanceof Zend_Date
+                ? $hiredate->get(Zend_Date::DATE_MEDIUM)
+                : null;
+
+            $retiredate = $data['retiredate'];
+            $data['retiredate'] = $retiredate instanceof Zend_Date
+                ? $retiredate->get(Zend_Date::DATE_MEDIUM)
+                : null;
+
+            $this->populate($data);
         }
 
         $summary->setDecorators(App_Form_Decorators::fileDecorators());
@@ -162,13 +163,6 @@ class Form_UserAdvanced extends Zend_Form
             'login',
             'password', 'confirmation',
         ), 'basic', array('legend' => 'Учётная запись'));
-        
-        $this->addDisplayGroup(array(
-            'role',
-            'email',
-            'hiredate', 'retiredate',
-            'summary'
-        ), 'job', array('legend' => 'Служебные данные'));
 
         $this->addDisplayGroup(array(
             'firstname', 'midname', 'lastname',
@@ -177,7 +171,13 @@ class Form_UserAdvanced extends Zend_Form
             'marital', 'children'
         ), 'private', array('legend' => 'Личные данные'));
 
-        
+        $this->addDisplayGroup(array(
+            'role',
+            'email',
+            'hiredate', 'retiredate',
+            'summary'
+        ), 'job', array('legend' => 'Служебные данные'));
+
         $this->setDisplayGroupDecorators(array(
             'FormElements',
             array('HtmlTag', array('tag'=>'table', 'class'=>'dispayGroup'))
@@ -198,14 +198,4 @@ class Form_UserAdvanced extends Zend_Form
         return $headlines;
     }
 
-
-
-
-
-    
-    private function dateToString($date)
-    {
-        $tempDate = array_reverse(explode('-', $date));
-        return implode('.', $tempDate);
-    }
 }

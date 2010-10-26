@@ -9,6 +9,17 @@ class Table_User extends Table_Base_User
     const STATUS_RETIRED = 'retired';
     const STATUS_TRIAL   = 'trial';
 
+
+    public function getUserClean($login)
+    {
+        return Doctrine_Query::create()
+                             ->from('Table_User')
+                             ->where('login=?', $login)
+                             ->limit(1)
+                             ->fetchOne();
+    }
+
+
     
     /**
      * Ищет пользователя по логину и паролю.
@@ -71,12 +82,11 @@ class Table_User extends Table_Base_User
 
     public function getUserByLogin($login)
     {
-        $user =  Doctrine_Query::create()
-                               ->from('Table_User')
-                               ->where('login=?', $login)
-                               ->limit(1)
-                               ->fetchOne();
-        return $user;
+        return Doctrine_Query::create()
+                             ->from('Table_User')
+                             ->where('login=?', $login)
+                             ->limit(1)
+                             ->execute(array(), 'app_hydrator');
     }
 
 
@@ -84,20 +94,17 @@ class Table_User extends Table_Base_User
     {
         foreach ($values as $key=>$value)
             if (empty($value)) unset($values[$key]);
-
         unset($values['confirmation']);
-
-        if (!empty($values['birthdate']))
-            $values['birthdate'] = $this->stringToDate($values['birthdate']);
-        if (!empty($values['hiredate']))
-            $values['hiredate'] = $this->stringToDate($values['hiredate']);
-        if (!empty($values['retiredate']))
-            $values['retiredate'] = $this->stringToDate($values['retiredate']);
 
         $user = new self;
         $user->setArray($values);
-        $user->salt = time();
-        $user->password = md5( md5($this->password) . $this->salt );
+
+        if ($user->birthdate instanceof Zend_Date)
+            $user->birthdate = $user->birthdate->get('yyyy-MM-dd');
+        if ($user->hiredate instanceof Zend_Date)
+            $user->hiredate = $user->hiredate->get('yyyy-MM-dd');
+        if ($user->retiredate instanceof Zend_Date)
+            $user->retiredate = $user->retiredate->get('yyyy-MM-dd');
 
         $user->save();
     }
@@ -111,23 +118,19 @@ class Table_User extends Table_Base_User
 
 
 
-    public function updateUser($login, $values)
+    public function updateUser($user, $values)
     {
         foreach ($values as $key=>$value)
             if (empty($value)) unset($values[$key]);
-
         unset($values['confirmation']);
 
-        if (!empty($values['birthdate']))
-            $values['birthdate'] = $this->stringToDate($values['birthdate']);
-        if (!empty($values['hiredate']))
-            $values['hiredate'] = $this->stringToDate($values['hiredate']);
-        if (!empty($values['retiredate']))
-            $values['retiredate'] = $this->stringToDate($values['retiredate']);
-
-        // а точно ли здесь необходим запрос?
-        $user = $this->getUserByLogin($login);
         $user->setArray($values);
+        if ($values['birthdate'])
+            $user->birthdate  = new Zend_Date($values['birthdate'], 'd.m.Y');
+        if ($values['hiredate'])
+            $user->hiredate   = new Zend_Date($values['hiredate'], 'd.m.Y');
+        if ($values['retiredate'])
+            $user->retiredate = new Zend_Date($values['retiredate'], 'd.m.Y');
 
         if ($values['password'])
         {
@@ -138,6 +141,16 @@ class Table_User extends Table_Base_User
         $user->save();
     }
 
+    public function  preUpdate($event)
+    {
+        if ($this->birthdate instanceof Zend_Date)
+            $this->birthdate = $this->birthdate->get('yyyy-MM-dd');
+        if ($this->hiredate instanceof Zend_Date)
+            $this->hiredate = $this->hiredate->get('yyyy-MM-dd');
+        if ($this->retiredate instanceof Zend_Date)
+            $this->retiredate = $this->retiredate->get('yyyy-MM-dd');
+    }
+
 
     public static function deleteUser($login)
     {
@@ -145,16 +158,5 @@ class Table_User extends Table_Base_User
                                 ->where('login=?', $login)
                                 ->limit(1)
                                 ->execute();
-    }
-
-
-
-
-    
-    // @todo перенести в плагин
-    private function stringToDate($date)
-    {
-        $tempDate = array_reverse(explode('.', $date));
-        return implode('-', $tempDate);
     }
 }

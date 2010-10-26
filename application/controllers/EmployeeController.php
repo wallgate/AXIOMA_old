@@ -18,10 +18,10 @@ class EmployeeController extends App_Controller_Action
 
     public function formAction()
     {
-        $userTable = new Table_User();
         $login = $this->_getParam('login');
-        if ($login)
-            $user = $userTable->getUserByLogin($login);
+
+        $userTable = new Table_User();
+        if ($login) $user = $userTable->getUserByLogin($login);
         $userForm  = new Form_UserAdvanced($user);
 
         if ($this->getRequest()->isPost())
@@ -29,7 +29,7 @@ class EmployeeController extends App_Controller_Action
             if ($userForm->isValid($this->getRequest()->getParams()))
             {
                 if ($user instanceof Table_User)
-                    $userTable->updateUser($login, $userForm->getValues());
+                    $userTable->updateUser($user, $userForm->getValues());
                 else
                     $userTable->insertUser($userForm->getValues());
 
