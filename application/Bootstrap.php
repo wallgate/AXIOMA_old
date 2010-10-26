@@ -12,7 +12,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         $view->headlink()->appendStylesheet('/public/css/main.css');
-        $view->headScript()->appendFile('/public/js/jquery-1.4.3.min.js');
+        $view->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js');
         $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
         $view->headScript()->appendFile('/public/js/main.js');
 

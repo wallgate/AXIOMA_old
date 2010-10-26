@@ -4,8 +4,8 @@ class EmployeeController extends App_Controller_Action
 {
     public function  preDispatch()
     {
-        $this->view->headlink()->appendStylesheet('/public/css/jquery-ui-1.8.5.css');
-        $this->view->headScript()->appendFile('/public/js/jquery-ui-1.8.5.min.js');
+        $this->view->headlink()->appendStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/ui-lightness/jquery-ui.css');
+        $this->view->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js');
         $this->view->headScript()->appendFile('/public/js/jquery.maskedinput.js');
     }
 
