@@ -61,13 +61,14 @@ class Form_UserAdvanced extends Zend_Form
         $retiredate->setLabel('Дата увольнения')
                    ->setOptions(array('class'=>'datePicker'));
 
+        $assetsConfig = Zend_Controller_Front::getInstance()->getParam('assetsConfig');
         $summary = new Zend_Form_Element_File('summary');
         $summary->setLabel('Файл резюме')
-                ->setDestination($summaryDestination);
+                ->setDestination($assetsConfig['summaryPath']);
 
         // личные данные
         $firstname = new Zend_Form_Element_Text('firstname');
-        $firstname->setLabel('Имя')
+        $firstname->setLabel('�?мя')
                   ->addFilter(new Zend_Filter_StringTrim())
                   ->setRequired();
 
