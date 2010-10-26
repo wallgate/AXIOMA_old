@@ -4,8 +4,8 @@ class EmployeeController extends App_Controller_Action
 {
     public function  preDispatch()
     {
-        $this->view->headlink()->appendStylesheet('/public/css/jquery-ui-1.8.5.css');
-        $this->view->headScript()->appendFile('/public/js/jquery-ui-1.8.5.min.js');
+        $this->view->headlink()->appendStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/ui-lightness/jquery-ui.css');
+        $this->view->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js');
         $this->view->headScript()->appendFile('/public/js/jquery.maskedinput.js');
     }
 
@@ -18,10 +18,10 @@ class EmployeeController extends App_Controller_Action
 
     public function formAction()
     {
-        $userTable = new Table_User();
         $login = $this->_getParam('login');
-        if ($login)
-            $user = $userTable->getUserByLogin($login);
+
+        $userTable = new Table_User();
+        if ($login) $user = $userTable->getUserByLogin($login);
         $userForm  = new Form_UserAdvanced($user);
 
         if ($this->getRequest()->isPost())
@@ -29,7 +29,7 @@ class EmployeeController extends App_Controller_Action
             if ($userForm->isValid($this->getRequest()->getParams()))
             {
                 if ($user instanceof Table_User)
-                    $userTable->updateUser($login, $userForm->getValues());
+                    $userTable->updateUser($user, $userForm->getValues());
                 else
                     $userTable->insertUser($userForm->getValues());
 

@@ -12,7 +12,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         $view->headlink()->appendStylesheet('/public/css/main.css');
-        $view->headScript()->appendFile('/public/js/jquery-1.4.3.min.js');
+        $view->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js');
         $view->headScript()->appendFile('/public/js/jquery.hoverIntent.js');
         $view->headScript()->appendFile('/public/js/main.js');
 
@@ -44,6 +44,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $manager->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
         $manager->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, true);
 
+        $manager->registerHydrator('app_hydrator', 'App_Doctrine_Hydrator');
+
         $dsn = sprintf("mysql://%s:%s@%s/%s",
             $dbConfig['username'],
             $dbConfig['password'],
@@ -61,9 +63,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initAcl()
     {
-        $this->bootstrap('layout');
-        $layout = $this->getResource('layout');
-        $view   = $layout->getView();
+        $this->bootstrap('view');
+        $view = $this->view;
 
         $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
 
@@ -114,5 +115,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
 
         return $router;
+    }
+
+
+    protected function _initAssets()
+    {
+        $assetsConfig = $this->getOption('assets');
+        $assetsConfig['summaryPath'] = $assetsConfig['path'] . '/summary';
+
+        if (!is_dir($assetsConfig['path']))
+            mkdir($assetsConfig['path']);
+        if (!is_dir($assetsConfig['summaryPath']))
+            mkdir($assetsConfig['summaryPath']);
+
+        Zend_Controller_Front::getInstance()->setParam('assetsConfig', $assetsConfig);
     }
 }
