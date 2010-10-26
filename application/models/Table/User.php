@@ -99,12 +99,12 @@ class Table_User extends Table_Base_User
         $user = new self;
         $user->setArray($values);
 
-        if ($user->birthdate instanceof Zend_Date)
-            $user->birthdate = $user->birthdate->get('yyyy-MM-dd');
-        if ($user->hiredate instanceof Zend_Date)
-            $user->hiredate = $user->hiredate->get('yyyy-MM-dd');
-        if ($user->retiredate instanceof Zend_Date)
-            $user->retiredate = $user->retiredate->get('yyyy-MM-dd');
+        if ($values['birthdate'])
+            $user->birthdate  = new Zend_Date($values['birthdate'], 'd.m.Y');
+        if ($values['hiredate'])
+            $user->hiredate   = new Zend_Date($values['hiredate'], 'd.m.Y');
+        if ($values['retiredate'])
+            $user->retiredate = new Zend_Date($values['retiredate'], 'd.m.Y');
 
         $user->save();
     }
@@ -113,6 +113,14 @@ class Table_User extends Table_Base_User
     {
         $this->salt = time();
         $this->password = md5( md5($this->password) . $this->salt );
+
+        if ($this->birthdate instanceof Zend_Date)
+            $this->birthdate = $this->birthdate->get('yyyy-MM-dd');
+        if ($this->hiredate instanceof Zend_Date)
+            $this->hiredate = $this->hiredate->get('yyyy-MM-dd');
+        if ($this->retiredate instanceof Zend_Date)
+            $this->retiredate = $this->retiredate->get('yyyy-MM-dd');
+
     }
 
 
