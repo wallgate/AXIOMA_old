@@ -10,14 +10,12 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
         $controller = $request->getParam('controller');
         $action     = $request->getParam('action');
 
+        if (in_array($controller, array('login', 'error'))) return;
+
         if (!Zend_Auth::getInstance()->hasIdentity())
         {
-            if ($controller != 'login')
-            {
-                $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-                $redirector->gotoUrl('/login');
-            }
-            return;
+            $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+            $redirector->gotoUrl('/login');
         }
 
         $this->acl = $this->initAcl();
