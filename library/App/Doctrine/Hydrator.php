@@ -21,7 +21,9 @@ class App_Doctrine_Hydrator extends Doctrine_Hydrator_RecordDriver
 
             foreach ($columns as $column=>$definition)
             {
-                if ($definition['type'] == 'date' || $definition['type'] == 'datetime')
+                if ($definition['type'] == 'date'
+                        || $definition['type'] == 'datetime'
+                        || $definition['type'] == 'timestamp')
                     if ($data[$column])
                         $record->$column = new Zend_Date($data[$column], 'Y-m-d H:i:s');
             }
