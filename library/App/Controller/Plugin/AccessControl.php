@@ -4,13 +4,16 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
 {
     protected $acl;
 
+    // $todo сделать так, чтобы можно было дабавлять в исключения отдельные экшны
+    protected $exceptions;
+
 
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
         $controller = $request->getParam('controller');
         $action     = $request->getParam('action');
 
-        if (in_array($controller, array('login', 'error'))) return;
+        if (in_array($controller, $this->exceptions)) return;
 
         if (!Zend_Auth::getInstance()->hasIdentity())
         {
@@ -64,5 +67,11 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
     public function getAcl()
     {
         return $this->acl;
+    }
+
+
+    public function setExceptions(array $exceptions)
+    {
+        $this->exceptions = $exceptions;
     }
 }
