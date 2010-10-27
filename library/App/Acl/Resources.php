@@ -68,11 +68,10 @@ class App_Acl_Resources
     public static function getResourceAlias($request)
     {
         if ($request instanceof Zend_Controller_Request_Abstract)
-        {
-            $controller = $request->getControllerName();
-            $action     = $request->getActionName();
-            $request    = '/' . $controller . '/' . $action;
-        }
+            $request = sprintf('/%s/%s',
+                                $request->getControllerName(),
+                                $request->getActionName()
+                              );
 
         foreach (self::$resources as $alias=>$resource)
             if ($resource['uri'] == $request)
