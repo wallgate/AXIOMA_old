@@ -4,6 +4,10 @@ class IndexController extends Zend_Controller_Action
 {
     public function indexAction()
     {
+//        $acl = $this->getHelper('acl');
+//        $acl->denyAccess();
+
+
         $login = Zend_Auth::getInstance()->getIdentity()->login;
         $userTable = new Table_User();
         $user = $userTable->getUserByLogin($login);
