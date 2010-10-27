@@ -9,11 +9,21 @@ class Table_Role extends Table_Base_Role
      */
     public static function getRoles()
     {
-        self::$roles = Doctrine_Query::create()
-                                     ->from('Table_Role u')
-                                     ->leftJoin('u.Rules')
-                                     ->fetchArray();
-        return self::$roles;
+        $roles = Doctrine_Query::create()
+                               ->from('Table_Role u')
+                               ->leftJoin('u.Permissions')
+                               ->fetchArray();
+
+        foreach ($roles as $role)
+        {
+            $newperms = array();
+            foreach ($role['Permissions'] as $permission)
+                $newperms[] = $permission['resource'];
+            $role['Permissions'] = $newperms;
+            $newroles[] = $role;
+        }
+
+        return self::$roles = $newroles;
     }
 
     public static function getRolesFromCache()

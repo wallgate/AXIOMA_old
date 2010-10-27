@@ -42,7 +42,7 @@ User:
     Role:
       local: role
       foreign: id
-
+      foreignAlias: Users
 
 Role:
   tableName: sys_roles
@@ -54,32 +54,23 @@ Role:
       type: many
       local: id
       foreign: role
-    Rules:
-      foreignAlias: Roles
-      class: Rule
-      refClass: Access
+    Permissions:
+      class: Permission
+      type: many
+      local: id
+      foreign: role
 
-Rule:
-  tableName: sys_rules
+Permission:
+  tableName: sys_permissions
   columns:
-    name: string(20)
-  relations:
-    Roles:
-      foreignAlias: Rules
-      class: Role
-      refClass: Access
-
-Access:
-  tableName: sys_access
-  columns:
-    role_id:
+    role:
       type: integer
       primary: true
-    rule_id:
-      type: integer
+    resource:
+      type: string(50)
       primary: true
   relations:
-    Roles:
-      class: Role
-    Rules:
-      class: Rule
+    Role:
+      local: role
+      foreign: id
+      foreignAlias: Permissions

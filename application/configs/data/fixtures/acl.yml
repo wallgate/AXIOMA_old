@@ -20,13 +20,17 @@ Table_User:
 Table_Role:
   Employee:
     name: "Сотрудник"
-    Rules: [Public]
   Webmaster:
     name: "Вебмастер"
-    Rules: [Public, Private]
 
-Table_Rule:
-  Public:
-    name: "открытая страница"
-  Private:
-    name: "закрытая страница"
+
+Table_Permission:
+  Employee_on_IndexIndex:
+    Role: Employee
+    resource: "home"
+  Webmaster_on_IndexIndex:
+    Role: Webmaster
+    resource: "home"
+  Webmaster_on_AdminIndex:
+    Role: Webmaster
+    resource: "admin"

@@ -7,8 +7,7 @@
  * 
  * @property string $name
  * @property Doctrine_Collection $Users
- * @property Doctrine_Collection $Rules
- * @property Doctrine_Collection $Access
+ * @property Doctrine_Collection $Permissions
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -37,13 +36,8 @@ abstract class Table_Base_Role extends Doctrine_Record
              'local' => 'id',
              'foreign' => 'role'));
 
-        $this->hasMany('Table_Rule as Rules', array(
-             'refClass' => 'Table_Access',
-             'local' => 'role_id',
-             'foreign' => 'rule_id'));
-
-        $this->hasMany('Table_Access as Access', array(
+        $this->hasMany('Table_Permission as Permissions', array(
              'local' => 'id',
-             'foreign' => 'role_id'));
+             'foreign' => 'role'));
     }
 }

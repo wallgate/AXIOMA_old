@@ -24,6 +24,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initControllerPlugins()
     {
         $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin(new App_Controller_Plugin_AccessControl());
         $front->registerPlugin(new App_Controller_Plugin_AssetGrabber());
     }
 
@@ -67,13 +68,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->view;
 
         $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
-
-        $resources = new App_Acl_Resources($view->navConfig);
-        
+        App_Acl_Resources::initResources($view->navConfig);
+/*       
         $acl = new App_Acl(Zend_Auth::getInstance()->getIdentity());
         Zend_Registry::set('ACL', $acl);
 
         return $acl;
+ * 
+ */
     }
 
 

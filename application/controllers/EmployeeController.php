@@ -1,6 +1,6 @@
 <?php
 
-class EmployeeController extends App_Controller_Action
+class EmployeeController extends Zend_Controller_Action
 {
     public function  preDispatch()
     {

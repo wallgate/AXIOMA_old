@@ -1,6 +1,6 @@
 <?php
 
-class ProfileController extends App_Controller_Action
+class ProfileController extends Zend_Controller_Action
 {
     public function editAction()
     {

@@ -7,7 +7,9 @@ class ErrorController extends Zend_Controller_Action
         $errors = $this->_getParam('error_handler');
 
         if ($errors->exception instanceof App_Exception_Restricted)
+        {
             return $this->_forward('restricted');
+        }
 
         switch ($errors->type) {
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:

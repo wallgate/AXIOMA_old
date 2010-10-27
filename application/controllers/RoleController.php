@@ -1,6 +1,6 @@
 <?php
 
-class RoleController extends App_Controller_Action
+class RoleController extends Zend_Controller_Action
 {
     public function listAction()
     {
