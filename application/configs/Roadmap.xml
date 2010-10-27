@@ -4,56 +4,46 @@
         <home>
             <label>Моя страница</label>
             <uri>/index/index</uri>
-            <rule>1</rule>
             <pages>
                 <profile>
                     <label>Редактирование профиля</label>
                     <uri>/profile/edit</uri>
-                    <rule>1</rule>
                 </profile>
             </pages>
         </home>
         <data>
             <label>Справочники</label>
             <uri>/data/index</uri>
-            <rule>1</rule>
         </data>
         <admin>
             <label>Администрирование</label>
             <uri>/admin/index</uri>
-            <rule>2</rule>
             <pages>
                 <employee>
                     <label>Сотрудники</label>
                     <uri>/employee/list</uri>
-                    <rule>2</rule>
                     <pages>
                         <employeeform>
                             <label>Добавление / редактирование сотрудника</label>
                             <uri>/employee/form</uri>
-                            <rule>2</rule>
                         </employeeform>
-                        <deleteuser>
+                        <deleteemployee>
                             <label>Удаление сотрудника</label>
                             <uri>/employee/delete</uri>
-                            <rule>2</rule>
-                        </deleteuser>
+                        </deleteemployee>
                     </pages>
                 </employee>
                 <roles>
                     <label>Должности</label>
                     <uri>/role/list</uri>
-                    <rule>2</rule>
                     <pages>
                         <roleform>
                             <label>Добавление / редактирование должности</label>
                             <uri>/role/form</uri>
-                            <rule>2</rule>
                         </roleform>
                         <deleterole>
                             <label>Удаление должности</label>
                             <uri>/role/delete</uri>
-                            <rule>2</rule>
                         </deleterole>
                     </pages>
                 </roles>
