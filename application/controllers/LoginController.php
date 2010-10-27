@@ -4,6 +4,9 @@ class LoginController extends Zend_Controller_Action
 {
     public function indexAction()
     {
+        if (Zend_Auth::getInstance()->hasIdentity())
+            return $this->_redirect('/');
+
         if ($this->getRequest()->isPost())
         {
             $login    = $this->_getParam('login');
