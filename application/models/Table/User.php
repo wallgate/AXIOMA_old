@@ -9,17 +9,6 @@ class Table_User extends Table_Base_User
     const STATUS_RETIRED = 'retired';
     const STATUS_TRIAL   = 'trial';
 
-
-    public function getUserClean($login)
-    {
-        return Doctrine_Query::create()
-                             ->from('Table_User')
-                             ->where('login=?', $login)
-                             ->limit(1)
-                             ->fetchOne();
-    }
-
-
     
     /**
      * Ищет пользователя по логину и паролю.
