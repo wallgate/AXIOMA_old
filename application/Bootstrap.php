@@ -67,20 +67,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
 
-    protected function _initAcl()
+    protected function _initResources()
     {
         $this->bootstrap('view');
         $view = $this->view;
 
         $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
         App_Acl_Resources::initResources($view->navConfig);
-/*       
-        $acl = new App_Acl(Zend_Auth::getInstance()->getIdentity());
-        Zend_Registry::set('ACL', $acl);
-
-        return $acl;
- * 
- */
     }
 
 
