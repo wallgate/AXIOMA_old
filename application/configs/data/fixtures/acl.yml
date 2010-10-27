@@ -28,9 +28,24 @@ Table_Permission:
   Employee_on_IndexIndex:
     Role: Employee
     resource: "home"
+  Employee_on_ProfileEdit:
+    Role: Employee
+    resource: "profile"
   Webmaster_on_IndexIndex:
     Role: Webmaster
     resource: "home"
+  Webmaster_on_ProfileEdit:
+    Role: Webmaster
+    resource: "profile"
   Webmaster_on_AdminIndex:
     Role: Webmaster
     resource: "admin"
+  Webmaster_on_EmployeeList:
+    Role: Webmaster
+    resource: "employee"
+  Webmaster_on_EmployeeForm:
+    Role: Webmaster
+    resource: "employeeform"
+  Webmaster_on_EmployeeDelete:
+    Role: Webmaster
+    resource: "deleteemployee"
