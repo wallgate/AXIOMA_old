@@ -29,7 +29,7 @@ class App_Form_Decorators
     {
         return array(
             'ViewHelper',
-            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'colspan'=>2, 'align'=>'center')),
+            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'colspan'=>2, 'align'=>'center', 'class'=>'submitCell')),
             array(array('trTag'=>'HtmlTag'), array('tag'=>'tr'))
         );
     }
@@ -51,7 +51,7 @@ class App_Form_Decorators
     {
         return array(
             'FormElements',
-            array('HtmlTag', array('tag'=>'table')),
+            array('HtmlTag', array('tag'=>'table', 'cellspacing'=>0)),
             'Form'
         );
     }

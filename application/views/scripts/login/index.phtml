@@ -1,0 +1,60 @@
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?= $this->headMeta(); ?>
+        <?= $this->headLink(); ?>
+        <?= $this->headScript(); ?>
+
+        <style>
+            body { background-color: #f2f2f2; }
+
+            .loginArea {
+                width: 270px; height: 200px;
+                position: absolute;
+                top: 33%; left: 39%;
+                background: url(/public/images/loginform.png) center no-repeat;
+                text-align: center;
+            }
+            .loginArea .underlay {
+                width: 56px; height: 51px;
+                background: url(/public/images/loginform_submit.png) center no-repeat;
+                margin: auto;
+                position: absolute;
+                z-index: 20;
+                top: 104px; left: 107px;
+            }
+
+            .loginArea form { padding-top: 30px; position: relative; }
+            .loginArea table { margin: auto; position: relative; z-index: 30; }
+            .loginArea td { padding-top: 15px; }
+            .loginArea td input { width: 105px; background: none; border: none; }
+            .loginArea td input:focus { border: none; }
+            .loginArea label { line-height: 20px; font-style: italic; margin-right: 7px; color: #808080; }
+            .loginArea td.submitCell { padding-top: 3px; }
+            .loginArea .submit {
+                margin-top: 5px;
+                height: 40px; width: 40px;
+            }
+        </style>
+
+        <script>
+            $(function()
+            {
+                $('.loginArea .underlay').fadeOut(0);
+                $('.loginArea .submit').hover(function(){
+                    $('.loginArea .underlay').fadeIn(200);
+                }, function() {
+                    $('.loginArea .underlay').fadeOut(200);
+                })
+            })
+        </script>
+    </head>
+
+    <body>
+        <div class="loginArea">
+            <div class="underlay"></div>
+            <?= $this->loginForm; ?>
+            <small><?= $this->errorMessages ?></small>
+        </div>
+    </body>
+</html>
