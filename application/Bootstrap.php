@@ -50,7 +50,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $manager->setAttribute(Doctrine::ATTR_VALIDATE, Doctrine::VALIDATE_ALL);
         $manager->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, true);
 
-        $manager->registerHydrator('app_hydrator', 'App_Doctrine_Hydrator');
+        $manager->registerHydrator('app_hydrator', 'App_Doctrine_RecordHydrator');
 
         $dsn = sprintf("mysql://%s:%s@%s/%s",
             $dbConfig['username'],

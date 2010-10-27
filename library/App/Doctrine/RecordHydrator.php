@@ -6,7 +6,7 @@
  *
  * Работает только при извлечении единственной записи
  */
-class App_Doctrine_Hydrator extends Doctrine_Hydrator_RecordDriver
+class App_Doctrine_RecordHydrator extends Doctrine_Hydrator_RecordDriver
 {
     public function hydrateResultSet($stmt)
     {
