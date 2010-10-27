@@ -13,6 +13,7 @@ class Table_User extends Table_Base_User
     /**
      * Ищет пользователя по логину и паролю.
      * Выбрасывает исключение, если пользователь не найден или пароль не совпадает.
+     * 
      * @param string $login
      * @param string $password
      * @throws Exception
@@ -39,7 +40,7 @@ class Table_User extends Table_Base_User
 
 
     /**
-     * Формирует список пользователей, выбирая из по статусу (работающие,
+     * Формирует список пользователей, выбирая их по статусу (работающие,
      * бывшие сотрудники, на испытательном сроке)
      *
      * @param string $status статус искомых пользователей
@@ -69,6 +70,12 @@ class Table_User extends Table_Base_User
                      ->fetchArray();
     }
 
+    /**
+     * Находит пользователя по его логину
+     *
+     * @param string $login логин
+     * @return Table_User
+     */
     public function getUserByLogin($login)
     {
         return Doctrine_Query::create()
@@ -98,22 +105,6 @@ class Table_User extends Table_Base_User
         $user->save();
     }
 
-    public function  preInsert($event)
-    {
-        $this->salt = time();
-        $this->password = md5( md5($this->password) . $this->salt );
-
-        if ($this->birthdate instanceof Zend_Date)
-            $this->birthdate = $this->birthdate->get('yyyy-MM-dd');
-        if ($this->hiredate instanceof Zend_Date)
-            $this->hiredate = $this->hiredate->get('yyyy-MM-dd');
-        if ($this->retiredate instanceof Zend_Date)
-            $this->retiredate = $this->retiredate->get('yyyy-MM-dd');
-
-    }
-
-
-
 
     public function updateUser($user, $values)
     {
@@ -138,6 +129,31 @@ class Table_User extends Table_Base_User
         $user->save();
     }
 
+
+    public static function deleteUser($login)
+    {
+        Doctrine_Query::create()->delete('Table_User')
+                                ->where('login=?', $login)
+                                ->limit(1)
+                                ->execute();
+    }
+
+
+
+    public function  preInsert($event)
+    {
+        $this->salt = time();
+        $this->password = md5( md5($this->password) . $this->salt );
+
+        if ($this->birthdate instanceof Zend_Date)
+            $this->birthdate = $this->birthdate->get('yyyy-MM-dd');
+        if ($this->hiredate instanceof Zend_Date)
+            $this->hiredate = $this->hiredate->get('yyyy-MM-dd');
+        if ($this->retiredate instanceof Zend_Date)
+            $this->retiredate = $this->retiredate->get('yyyy-MM-dd');
+
+    }
+
     public function  preUpdate($event)
     {
         if ($this->birthdate instanceof Zend_Date)
@@ -148,12 +164,4 @@ class Table_User extends Table_Base_User
             $this->retiredate = $this->retiredate->get('yyyy-MM-dd');
     }
 
-
-    public static function deleteUser($login)
-    {
-        Doctrine_Query::create()->delete('Table_User')
-                                ->where('login=?', $login)
-                                ->limit(1)
-                                ->execute();
-    }
 }
