@@ -45,22 +45,37 @@ class App_Acl_Resources
         return $out;
     }
 
+
+
+
     
     public static function getResources()
     {
         return self::$resources;
     }
 
-
-    public static function getResourceAlias(Zend_Controller_Request_Abstract $request)
+    public static function getResource($alias)
     {
-        $controller = $request->getControllerName();
-        $action     = $request->getActionName();
+        return self::$resources[$alias];
+    }
 
-        $uri = '/' . $controller . '/' . $action;
+    public static function findResource($request)
+    {
+        $alias = self::getResourceAlias($request);
+        return self::$resources[$alias];
+    }
+
+    public static function getResourceAlias($request)
+    {
+        if ($request instanceof Zend_Controller_Request_Abstract)
+        {
+            $controller = $request->getControllerName();
+            $action     = $request->getActionName();
+            $request    = '/' . $controller . '/' . $action;
+        }
 
         foreach (self::$resources as $alias=>$resource)
-            if ($resource['uri'] == $uri)
+            if ($resource['uri'] == $request)
             {
                 $resourceAlias = $alias;
                 break;

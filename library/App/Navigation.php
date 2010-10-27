@@ -22,12 +22,12 @@ class App_Navigation extends Zend_Navigation
             else return false;
         }
 
-        $this->acl = Zend_Registry::get('ACL');
+        $this->acl = Zend_Controller_Front::getInstance()
+                                          ->getPlugin('App_Controller_Plugin_AccessControl')
+                                          ->getAcl();
+
         $role  = Zend_Auth::getInstance()->getIdentity()->role;
-
-
         $pages = $this->filter($role, $pages);
-
 
         parent::__construct($pages);
     }
@@ -43,13 +43,14 @@ class App_Navigation extends Zend_Navigation
         $out = array();
         foreach ($pages as $page)
         {
-            if ($level) unset($page['pages']);
+            if ($level) unset($page['pages']); // @todo третий уровень просто отрубается. подумать
             if (is_array($page['pages']))
-                $page['pages'] = $this->filter ($role, $page['pages'], $level+1);
+                $page['pages'] = $this->filter($role, $page['pages'], $level+1);
             if (!count($page['pages'])) unset($page['pages']);
 
-            $type = App_Acl_Resources::getResourceType($page['uri']);
-            if ($this->acl->isAllowed($role, $type)) $out[] = $page;
+            $resource = App_Acl_Resources::getResourceAlias($page['uri']);
+            if ($this->acl->isAllowed($role, $resource))
+                $out[] = $page;
         }
         return $out;
     }

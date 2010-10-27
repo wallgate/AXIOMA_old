@@ -13,11 +13,11 @@
                 [ <a href="/logout">выход</a> ]<br/>
                 <small><a href="/profile/edit">редактировать профиль</a></small>
             </p>
-            <? /*$this->navigation($this->navConfig);*/ ?>
+            <?= $this->navigation($this->navConfig); ?>
         </div>
 
         <div class="main">
-            <h1><? /*$this->getHelper('Navigation')->headline();*/ ?></h1>
+            <h1><?= $this->getHelper('Navigation')->headline(); ?></h1>
             <?= $this->layout()->content; ?>
         </div>
     </body>
