@@ -36,9 +36,9 @@ class Form_UserAdvanced extends Zend_Form
         }
 
         // служебные данные
-        $roles = Table_Role::getRolesFromCache();
+        $roles = App_Acl_Roles::getRoles(); // @todo roles сюда надо передавать
         foreach ($roles as $role)
-            $roleOptions[$role['id']] = $role['name'];
+            $roleOptions[$role->id] = $role->name;
         $role = new Zend_Form_Element_Select('role');
         $role->setLabel('Должность')
              ->setMultiOptions($roleOptions);

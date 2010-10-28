@@ -25,10 +25,10 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
         $role      = Zend_Auth::getInstance()->getIdentity()->role;
         $resource  = App_Acl_Resources::getResourceAlias($request);
 
-        // временная мера: суперпользователь
-        //if ($role == 2) return;
+        // временная мера: режим бога
+        if ($role == 2) return;
 
-        if ( !$this->acl->isAllowed($role, $resource) )
+        if (!$this->acl->isAllowed($role, $resource))
         {
             $request->setControllerName('error')
                     ->setActionName('restricted')
@@ -50,13 +50,13 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
         foreach (array_keys($resourceList) as $resource)
             $acl->add(new Zend_Acl_Resource($resource));
 
-        $roleList = Table_Role::getRoles();
+        $roleList = App_Acl_Roles::getRoles();
         foreach ($roleList as $role)
         {
-            $acl->addRole(new Zend_Acl_Role($role['id']));
+            $acl->addRole(new Zend_Acl_Role($role->id));
 
-            foreach ($role['Permissions'] as $permission)
-                $acl->allow($role['id'], $permission);
+            foreach ($role->Permissions as $permission)
+                $acl->allow($role->id, $permission->resource);
         }
 
         return $acl;

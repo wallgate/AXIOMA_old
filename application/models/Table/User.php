@@ -67,7 +67,7 @@ class Table_User extends Table_Base_User
         }
 
         return $users->orderBy('lastname')
-                     ->fetchArray();
+                     ->execute(array(), 'app_hydrator');
     }
 
     /**
@@ -111,6 +111,7 @@ class Table_User extends Table_Base_User
         foreach ($values as $key=>$value)
             if (empty($value)) unset($values[$key]);
         unset($values['confirmation']);
+        unset($values['created_at']);
 
         $user->setArray($values);
         if ($values['birthdate'])
@@ -140,7 +141,7 @@ class Table_User extends Table_Base_User
 
 
 
-    public function  preInsert($event)
+    public function preInsert($event)
     {
         $this->salt = time();
         $this->password = md5( md5($this->password) . $this->salt );
@@ -162,6 +163,9 @@ class Table_User extends Table_Base_User
             $this->hiredate = $this->hiredate->get('yyyy-MM-dd');
         if ($this->retiredate instanceof Zend_Date)
             $this->retiredate = $this->retiredate->get('yyyy-MM-dd');
+
+        if ($this->last_login_at instanceof Zend_Date)
+            $this->last_login_at = $this->last_login_at->get('Y-M-d H:m:s');
     }
 
 }

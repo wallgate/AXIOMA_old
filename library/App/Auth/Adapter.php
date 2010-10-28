@@ -31,8 +31,10 @@ class App_Auth_Adapter implements Zend_Auth_Adapter_Interface
         try
         {
             $user = Table_User::authenticate($this->login, $this->password);
-            $user->last_login_at = date('Y-m-d H:i:s');
+
+            $user->last_login_at = new Zend_Date(date('Y-m-d H:i:s'), 'Y-M-d H:m:s');
             $user->save();
+
             return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $user);
         }
         catch (Exception $e)

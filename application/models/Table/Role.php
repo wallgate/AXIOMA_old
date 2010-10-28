@@ -2,32 +2,33 @@
 
 class Table_Role extends Table_Base_Role
 {
-    protected static $roles;
-
-    /**
-     * @return Table_Role
-     */
-    public static function getRoles()
+    public function getRoles()
     {
         $roles = Doctrine_Query::create()
                                ->from('Table_Role u')
                                ->leftJoin('u.Permissions')
-                               ->fetchArray();
+                               ->orderBy('u.name')
+                               ->execute(array(), Doctrine::HYDRATE_RECORD);
 
-        foreach ($roles as $role)
-        {
-            $newperms = array();
-            foreach ($role['Permissions'] as $permission)
-                $newperms[] = $permission['resource'];
-            $role['Permissions'] = $newperms;
-            $newroles[$role['name']] = $role;
-        }
+        $records = $roles->getData();
+        foreach ($records as $record)
+            $out[$record->name] = $record;
 
-        return self::$roles = $newroles;
+        return $out;
     }
 
-    public static function getRolesFromCache()
+
+
+    public function insertRole($data)
     {
-        return self::$roles;
+        $role = new self();
+        $role->name = $data['name'];
+        $role->save();
+    }
+
+    public function updateRole($role, $data)
+    {
+        $role->name = $data['name'];
+        $role->save();
     }
 }

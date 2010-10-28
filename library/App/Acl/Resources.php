@@ -65,6 +65,14 @@ class App_Acl_Resources
         return self::$resources[$alias];
     }
 
+    /**
+     * Возвращает псевдоним ресурса, под которым тот значится в Roadmap.xml.
+     * В качестве запроса можно также передавать строку в формате
+     * /имя_контроллера/имя_действия
+     *
+     * @param Zend_Controller_Request_Abstract $request запрос
+     * @return string
+     */
     public static function getResourceAlias($request)
     {
         if ($request instanceof Zend_Controller_Request_Abstract)
@@ -72,6 +80,8 @@ class App_Acl_Resources
                                 $request->getControllerName(),
                                 $request->getActionName()
                               );
+
+        if (!is_string($request)) throw new Exception();
 
         foreach (self::$resources as $alias=>$resource)
             if ($resource['uri'] == $request)
