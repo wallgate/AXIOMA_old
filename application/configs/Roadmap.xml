@@ -37,10 +37,10 @@
                     <label>Должности</label>
                     <uri>/roles/index</uri>
                     <pages>
-                        <roleform>
+                        <permissions>
                             <label>Добавление / редактирование должности</label>
                             <uri>/roles/form</uri>
-                        </roleform>
+                        </permissions>
                         <deleterole>
                             <label>Удаление должности</label>
                             <uri>/roles/delete</uri>

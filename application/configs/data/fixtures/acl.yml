@@ -10,16 +10,16 @@ Table_User:
   Admin:
     login: "admin"
     password: "root"
-    firstname: Вячеслав
-    midname: Алексеевич
-    lastname: Васильев
+    firstname: Артём
+    midname: Михайлович
+    lastname: Шпаков
     hiredate: "2010-01-11"
     Role: Webmaster
 
 
 Table_Role:
   Employee:
-    name: "Сотрудник"
+    name: "Менеджер"
   Webmaster:
     name: "Вебмастер"
 
@@ -34,9 +34,6 @@ Table_Permission:
   Webmaster_on_IndexIndex:
     Role: Webmaster
     resource: "home"
-  Webmaster_on_ProfileEdit:
-    Role: Webmaster
-    resource: "profile"
   Webmaster_on_AdminIndex:
     Role: Webmaster
     resource: "admin"
@@ -49,3 +46,12 @@ Table_Permission:
   Webmaster_on_EmployeeDelete:
     Role: Webmaster
     resource: "deleteemployee"
+  Webmaster_on_RolesList:
+    Role: Webmaster
+    resource: "roles"
+  Webmaster_on_RolesPermissions:
+    Role: Webmaster
+    resource: "permissions"
+  Webmaster_on_RolesDelete:
+    Role: Webmaster
+    resource: "deleterole"
