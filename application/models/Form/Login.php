@@ -20,6 +20,7 @@ class Form_Login extends Zend_Form
         $submit = new Zend_Form_Element_Submit('Войти');
         $submit->setDecorators(App_Form_Decorators::buttonDecorators())
                ->setAttribs(array('id'=>'submit', 'class'=>'submit'))
+               ->setLabel('')
                ->setIgnore(true);
 
         $this->addElements(array($loginElement, $passwElement, $submit));

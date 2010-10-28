@@ -4,6 +4,9 @@ class LoginController extends Zend_Controller_Action
 {
     public function indexAction()
     {
+        if (Zend_Auth::getInstance()->hasIdentity())
+            return $this->_redirect('/');
+
         if ($this->getRequest()->isPost())
         {
             $login    = $this->_getParam('login');
@@ -19,7 +22,7 @@ class LoginController extends Zend_Controller_Action
         }
 
         $this->view->loginForm = new Form_Login($login);
-        $this->_helper->layout()->setLayout('login');
+        $this->_helper->layout()->disableLayout(true);
     }
 
     public function logoutAction()
