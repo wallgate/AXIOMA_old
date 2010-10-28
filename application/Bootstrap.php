@@ -67,13 +67,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
 
-    protected function _initResources()
+    protected function _initAcl()
     {
         $this->bootstrap('view');
         $view = $this->view;
 
         $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
         App_Acl_Resources::initResources($view->navConfig);
+        App_Acl_Roles::initRoles();
     }
 
 
@@ -116,7 +117,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // должности
         $router->addRoute('editRole', new Zend_Controller_Router_Route(
-            '/role/form/:name', array('controller'=>'role', 'action'=>'form', 'status'=>$name)
+            '/role/:role/permissions', array('controller'=>'role', 'action'=>'form', 'status'=>$role)
         ));
 
         return $router;
