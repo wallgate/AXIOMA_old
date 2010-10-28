@@ -20,7 +20,7 @@ class Table_Role extends Table_Base_Role
             foreach ($role['Permissions'] as $permission)
                 $newperms[] = $permission['resource'];
             $role['Permissions'] = $newperms;
-            $newroles[] = $role;
+            $newroles[$role['name']] = $role;
         }
 
         return self::$roles = $newroles;
