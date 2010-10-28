@@ -38,6 +38,9 @@ abstract class Table_Base_Role extends Doctrine_Record
 
         $this->hasMany('Table_Permission as Permissions', array(
              'local' => 'id',
-             'foreign' => 'role'));
+             'foreign' => 'role',
+             'cascade' => array(
+             0 => 'delete',
+             )));
     }
 }

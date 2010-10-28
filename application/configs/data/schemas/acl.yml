@@ -59,6 +59,7 @@ Role:
       type: many
       local: id
       foreign: role
+      cascade: [delete]
 
 Permission:
   tableName: sys_permissions

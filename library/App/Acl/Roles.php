@@ -14,4 +14,9 @@ class App_Acl_Roles
     {
         return self::$roles;
     }
+
+    public static function getRole($name)
+    {
+        return self::$roles[$name];
+    }
 }

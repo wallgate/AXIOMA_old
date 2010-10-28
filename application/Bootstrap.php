@@ -116,9 +116,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
 
         // должности
-        $router->addRoute('editRole', new Zend_Controller_Router_Route(
-            '/roles/:role/permissions', array('controller'=>'roles', 'action'=>'permissions', 'status'=>$role)
+        $router->addRoute('newRole', new Zend_Controller_Router_Route(
+            '/roles/new', array('controller'=>'roles', 'action'=>'permissions')
         ));
+        $router->addRoute('editRole', new Zend_Controller_Router_Route(
+            '/roles/:role/permissions', array('controller'=>'roles', 'action'=>'permissions', 'role'=>$role)
+        ));
+        $router->addRoute('deleteRole', new Zend_Controller_Router_Route(
+            '/roles/delete/:role', array('controller'=>'roles', 'action'=>'delete', 'role'=>$role)
+        ));
+
 
         return $router;
     }
