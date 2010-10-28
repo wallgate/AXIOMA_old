@@ -24,6 +24,18 @@ class App_Form_Decorators
         );
     }
 
+    
+    public static function checkboxDecorators()
+    {
+        return array(
+            'ViewHelper',
+            array('Label', array('placement'=>'append')),
+            array(array('tdTag'=>'HtmlTag'), array('tag'=>'td', 'valign'=>'top')),
+            array(array('emptyCell'=>'HtmlTag'), array('tag'=>'td', 'placement'=>'prepend')),
+            array(array('trTag'=>'HtmlTag'), array('tag'=>'tr', 'valign'=>'top'))
+        );
+    }
+
 
     public static function buttonDecorators()
     {

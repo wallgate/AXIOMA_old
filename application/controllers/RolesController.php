@@ -18,7 +18,7 @@ class RolesController extends Zend_Controller_Action
     {
         $roles    = App_Acl_Roles::getRoles();
         $role     = $roles[$this->_getParam('role')];
-        $roleForm = new Form_Permissions();
+        $roleForm = new Form_Permissions($role);
 
         if ($this->getRequest()->isPost())
         {
@@ -35,8 +35,6 @@ class RolesController extends Zend_Controller_Action
             }
         }
 
-        if ($role instanceof Table_Role)
-            $roleForm->populate($role->getData());
         $this->view->roleForm = $roleForm;
     }
 

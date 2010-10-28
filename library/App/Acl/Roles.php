@@ -19,4 +19,15 @@ class App_Acl_Roles
     {
         return self::$roles[$name];
     }
+
+    public static function getPermettedResources($role)
+    {
+        $permissions = $role->Permissions;
+        
+        if ($permissions)
+            foreach ($permissions as $permission)
+                $permittedResources[] = $permission->resource;
+        
+        return $permittedResources;
+    }
 }

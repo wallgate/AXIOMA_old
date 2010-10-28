@@ -4,6 +4,7 @@ class Table_Role extends Table_Base_Role
 {
     public function getRoles()
     {
+        // @todo неплохо было бы, если б привелегии гидрировались массивом, а роли - объектом
         $roles = Doctrine_Query::create()
                                ->from('Table_Role u')
                                ->leftJoin('u.Permissions')
