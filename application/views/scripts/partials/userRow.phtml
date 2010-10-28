@@ -8,7 +8,7 @@
         <?= $this->Role['name'] ?>
     </td>
     <td>
-        <?= $this->last_login_at ? $this->last_login_at : 'никогда' ?>
+        <?= $this->last_login_at ? $this->last_login_at->get(Zend_Date::DATETIME_LONG) : 'никогда' ?>
     </td>
     <td width="60">
         <? if ($this->login != Zend_Auth::getInstance()->getIdentity()->login) { ?>
