@@ -107,11 +107,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('showUsers', new Zend_Controller_Router_Route(
             '/employee/list/:status', array('controller'=>'employee', 'action'=>'list', 'status'=>$status)
         ));
-        $router->addRoute('showUserForm', new Zend_Controller_Router_Route(
+        $router->addRoute('editUser', new Zend_Controller_Router_Route(
             '/employee/form/:login', array('controller'=>'employee', 'action'=>'form', 'login'=>$login)
         ));
         $router->addRoute('deleteUser', new Zend_Controller_Router_Route(
             '/employee/delete/:login', array('controller'=>'employee', 'action'=>'delete', 'login'=>$login)
+        ));
+
+        // должности
+        $router->addRoute('editRole', new Zend_Controller_Router_Route(
+            '/role/form/:name', array('controller'=>'role', 'action'=>'form', 'status'=>$name)
         ));
 
         return $router;
