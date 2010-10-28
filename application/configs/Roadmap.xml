@@ -21,7 +21,7 @@
             <pages>
                 <employee>
                     <label>Сотрудники</label>
-                    <uri>/employee/list</uri>
+                    <uri>/employee/index</uri>
                     <pages>
                         <employeeform>
                             <label>Добавление / редактирование сотрудника</label>
@@ -35,15 +35,15 @@
                 </employee>
                 <roles>
                     <label>Должности</label>
-                    <uri>/role/list</uri>
+                    <uri>/roles/index</uri>
                     <pages>
                         <roleform>
                             <label>Добавление / редактирование должности</label>
-                            <uri>/role/form</uri>
+                            <uri>/roles/form</uri>
                         </roleform>
                         <deleterole>
                             <label>Удаление должности</label>
-                            <uri>/role/delete</uri>
+                            <uri>/roles/delete</uri>
                         </deleterole>
                     </pages>
                 </roles>

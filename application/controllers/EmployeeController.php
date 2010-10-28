@@ -9,7 +9,7 @@ class EmployeeController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/public/js/jquery.maskedinput.js');
     }
 
-    public function listAction()
+    public function indexAction()
     {
         $userTable = new Table_User();
         $status = $this->_getParam('status');
@@ -33,7 +33,7 @@ class EmployeeController extends Zend_Controller_Action
                 else
                     $userTable->insertUser($userForm->getValues());
 
-                return $this->_redirect('/employee/list');
+                return $this->_redirect('/employee');
             }
         }
 
@@ -45,6 +45,6 @@ class EmployeeController extends Zend_Controller_Action
     {
         $login = $this->_getParam('login');
         Table_User::deleteUser($login);
-        $this->_redirect('/employee/list');
+        $this->_redirect('/employee');
     }
 }

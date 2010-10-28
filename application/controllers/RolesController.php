@@ -1,13 +1,13 @@
 <?php
 
-class RoleController extends Zend_Controller_Action
+class RolesController extends Zend_Controller_Action
 {
-    public function listAction()
+    public function indexAction()
     {
         $this->view->roles = App_Acl_Roles::getRoles();
     }
 
-    public function formAction()
+    public function permissionsAction()
     {
         $roles    = App_Acl_Roles::getRoles();
         $role     = $roles[$this->_getParam('role')];
@@ -24,7 +24,7 @@ class RoleController extends Zend_Controller_Action
                 else
                     $roleTable->insertRole($roleForm->getValues());
 
-                return $this->_redirect('/role/list');
+                return $this->_redirect('/roles');
             }
         }
 

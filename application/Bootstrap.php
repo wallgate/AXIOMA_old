@@ -117,7 +117,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // должности
         $router->addRoute('editRole', new Zend_Controller_Router_Route(
-            '/role/:role/permissions', array('controller'=>'role', 'action'=>'form', 'status'=>$role)
+            '/roles/:role/permissions', array('controller'=>'roles', 'action'=>'permissions', 'status'=>$role)
         ));
 
         return $router;
