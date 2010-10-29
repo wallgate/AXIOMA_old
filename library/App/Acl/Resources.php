@@ -5,46 +5,23 @@ class App_Acl_Resources
     const ERROR_ROADMAP_INVALID_FORMAT = -99;
 
     /**
-     * @var array
-     *
-     * ресурсы системы, где ключ - псевдоним ресурса, значение - массив,
-     * содержащий label и uri
+     * @var Zend_Config
      */
     private static $resources;
-    
-    public static function initResources($resourcesConfig)
+
+    /**
+     * @param App_Config_Decorator_TreeExtended_Interface $resourcesConfig
+     */
+    public static function setResources($resourcesConfig)
     {
-        if (!is_array($resourcesConfig))
-        {
-            if (method_exists($resourcesConfig, 'toArray'))
-                $resourcesConfig = $resourcesConfig->toArray();
-            else
-                throw new Exception(self::ERROR_ROADMAP_INVALID_FORMAT);
-        }
+        //var_dump($resourcesConfig->get('admin'));
+        self::$resources = $resourcesConfig;
 
-        $instance = new self();
-        self::$resources = $instance->processRoadmap($resourcesConfig);
+        //$xml = simplexml_load_file(APPLICATION_PATH.'/configs/Roadmap.xml');
+        //var_dump($xml->resources->admin->children());
+//die();
+        var_dump($resourcesConfig->getChildren('admin'));
     }
-
-
-    private function processRoadmap(array $resources)
-    {
-        $out = array();
-
-        foreach ($resources as $name=>$resource)
-        {
-            if (is_array($resource['pages']))
-            {
-                $inner = $this->processRoadmap($resource['pages']);
-                foreach ($inner as $innername=>$page) $out[$innername] = $page;
-                unset($resource['pages']);
-            }
-
-            $out[$name] = $resource;
-        }
-        return $out;
-    }
-
 
 
 
@@ -56,7 +33,7 @@ class App_Acl_Resources
 
     public static function getResource($alias)
     {
-        return self::$resources[$alias];
+        return self::$resources->get($alias);
     }
 
     public static function findResource($request)
@@ -70,18 +47,21 @@ class App_Acl_Resources
      * В качестве запроса можно также передавать строку в формате
      * /имя_контроллера/имя_действия
      *
-     * @param Zend_Controller_Request_Abstract $request запрос
+     * @param Zend_Controller_Request_Abstract | string $request запрос
      * @return string
      */
     public static function getResourceAlias($request)
     {
         if ($request instanceof Zend_Controller_Request_Abstract)
             $request = sprintf('/%s/%s',
-                                $request->getControllerName(),
-                                $request->getActionName()
-                              );
+                $request->getControllerName(),
+                $request->getActionName()
+            );
 
         if (!is_string($request)) throw new Exception();
+        // @todo уточнить, что методу не понравилось
+
+        $resources = self::$resources;
 
         foreach (self::$resources as $alias=>$resource)
             if ($resource['uri'] == $request)

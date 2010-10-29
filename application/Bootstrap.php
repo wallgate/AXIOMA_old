@@ -72,8 +72,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('view');
         $view = $this->view;
 
-        $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'nav');
-        App_Acl_Resources::initResources($view->navConfig);
+        $view->navConfig = new Zend_Config_Xml(APPLICATION_PATH.'/configs/Roadmap.xml', 'resources');
+        App_Acl_Resources::setResources(new App_Config_Decorator_TreeExtended($view->navConfig));
         App_Acl_Roles::initRoles();
     }
 

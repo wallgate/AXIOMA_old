@@ -13,15 +13,8 @@ class App_Navigation extends Zend_Navigation
 
     // @todo разобраться как следует с навигацией
 
-    public function __construct($pages = null)
+    public function __construct(Zend_Config $pages)
     {
-        if (!is_array($pages))
-        {
-            if (method_exists($pages, 'toArray'))
-                $pages = $pages->toArray();
-            else return false;
-        }
-
         $this->acl = Zend_Controller_Front::getInstance()
                                           ->getPlugin('App_Controller_Plugin_AccessControl')
                                           ->getAcl();

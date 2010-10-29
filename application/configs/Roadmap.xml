@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
-    <nav>
+    <resources>
         <home>
             <label>Моя страница</label>
             <uri>/index/index</uri>
@@ -49,5 +49,5 @@
                 </roles>
             </pages>
         </admin>
-    </nav>
+    </resources>
 </configdata>

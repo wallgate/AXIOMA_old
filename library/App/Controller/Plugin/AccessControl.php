@@ -14,6 +14,7 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
         $action     = $request->getParam('action');
 
         if (in_array($controller, $this->exceptions)) return;
+        // @todo как правильно управлять там, где плагин запускать, а где - нет?
 
         if (!Zend_Auth::getInstance()->hasIdentity())
         {
@@ -43,8 +44,6 @@ class App_Controller_Plugin_AccessControl extends Zend_Controller_Plugin_Abstrac
     protected function initAcl()
     {
         $acl = new Zend_Acl();
-
-        $acl->deny();
 
         $resourceList = App_Acl_Resources::getResources();
         foreach (array_keys($resourceList) as $resource)
