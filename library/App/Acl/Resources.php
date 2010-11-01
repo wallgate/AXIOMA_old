@@ -33,14 +33,13 @@ class App_Acl_Resources
 
         foreach ($resources as $name=>$resource)
         {
+            $out[$name] = $resource;
             if (is_array($resource['pages']))
             {
                 $inner = $this->processRoadmap($resource['pages']);
                 foreach ($inner as $innername=>$page) $out[$innername] = $page;
                 unset($resource['pages']);
             }
-
-            $out[$name] = $resource;
         }
         return $out;
     }
