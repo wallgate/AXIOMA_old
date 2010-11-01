@@ -1,8 +1,10 @@
 <tr>
-    <td width="200">
-        <a href="/roles/<?= $this->name ?>/permissions">
-            <?= $this->name ?>
-        </a>
+    <td>
+        <?= $this->name ?>
+    </td>
+    <td></td>
+    <td width="80">
+        <a href="/roles/<?= $this->name ?>/permissions">редактировать</a>
     </td>
     <td width="60">
         <? if ($this->name != Zend_Auth::getInstance()->getIdentity()->Role->name) { ?>

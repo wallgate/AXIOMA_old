@@ -38,8 +38,8 @@
                     <uri>/roles/index</uri>
                     <pages>
                         <permissions>
-                            <label>Добавление / редактирование должности</label>
-                            <uri>/roles/form</uri>
+                            <label>Установка привелегий</label>
+                            <uri>/roles/permissions</uri>
                         </permissions>
                         <deleterole>
                             <label>Удаление должности</label>

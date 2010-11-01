@@ -1,6 +1,6 @@
 <tr>
     <td width="200">
-        <a href="/employee/form/<?= $this->login ?>">
+        <a href="/employee/view/<?= $this->login ?>">
             <?= $this->lastname ?>&nbsp;<?= $this->firstname ?>
         </a>
     </td>
@@ -9,6 +9,9 @@
     </td>
     <td>
         <?= $this->last_login_at ? $this->last_login_at->get(Zend_Date::DATETIME_LONG) : 'никогда' ?>
+    </td>
+    <td width="80">
+        <a href="/employee/form/<?= $this->login ?>">редактировать</a>
     </td>
     <td width="60">
         <? if ($this->login != Zend_Auth::getInstance()->getIdentity()->login) { ?>
