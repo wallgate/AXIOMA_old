@@ -1,0 +1,70 @@
+<h3>
+    <?= $this->user->lastname ?>
+    <?= $this->user->firstname ?>
+    <?= $this->user->midname ?>
+</h3>
+
+<p><?= $this->user->Role->name ?></p>
+
+<table>
+    <tr>
+        <td>Дата рождения</td>
+        <td><?= $this->user->birthdate ? $this->user->birthdate->get(Zend_Date::DATE_LONG) : '<i>-не указана-</i>' ?></td>
+    </tr>
+    <tr>
+        <td>Сотовый телефон</td>
+        <td><?= $this->user->cellphone ? $this->user->cellphone : '<i>-не указан-</i>' ?></td>
+    </tr>
+    <tr>
+        <td>Домашний телефон</td>
+        <td><?= $this->user->homephone ? $this->user->homephone : '<i>-не указан-</i>' ?></td>
+    </tr>
+    <tr>
+        <td>Адрес прописки</td>
+        <td><?= $this->user->addressreg ? $this->user->addressreg : '<i>-не указан-</i>' ?></td>
+    </tr>
+    <tr>
+        <td>Адрес проживания</td>
+        <td><?= $this->user->addressfact ? $this->user->addressfact : '<i>-не указан-</i>' ?></td>
+    </tr>
+    <tr>
+        <td>Семейное положение</td>
+        <td><?= $this->user->marital ? $this->user->marital : '<i>-не указано-</i>' ?></td>
+    </tr>
+    <? if ($this->user->children) { ?>
+    <tr>
+        <td>Дети</td>
+        <td><?= $this->user->children ?></td>
+    </tr>
+    <? } ?>
+    <tr>
+        <td>Служебный e-mail</td>
+        <td><?= $this->user->email ? $this->user->email : '<i>-не указан-</i>' ?></td>
+    </tr>
+    <? if ($this->user->hiredate) { ?>
+    <tr>
+        <td>Дата приёма на работу</td>
+        <td><?= $this->user->hiredate->get(Zend_Date::DATE_LONG) ?></td>
+    </tr>
+    <? } ?>
+    <? if ($this->user->retiredate) { ?>
+    <tr>
+        <td>Дата увольнения</td>
+        <td><?= $this->user->retiredate->get(Zend_Date::DATE_LONG) ?></td>
+    </tr>
+    <? } ?>
+    <? if ($this->user->summary) { ?>
+    <tr>
+        <td>Резюме</td>
+        <td><a href="/assets/<?= $this->user->summary ?>">Резюме</a></td>
+    </tr>
+    <? } ?>
+
+    <tr>
+        <td>Время последнего логина</td>
+        <td><?= $this->user->last_login_at ? $this->user->last_login_at->get(Zend_Date::DATETIME_LONG) : '<i>-никогда-</i>' ?></td>
+    </tr>
+</table>
+
+<br/>
+<p>&larr; <a href="#">Список сотрудников</a></p>

@@ -16,6 +16,17 @@ class EmployeeController extends Zend_Controller_Action
         $this->view->users = $userTable->getUsers($status);
     }
 
+
+    public function viewAction()
+    {
+        $login = $this->_getParam('login');
+        if (!$login) throw new Exception('Сотрудник не выбран');
+
+        $userTable = new Table_User();
+        $this->view->user = $userTable->getUserByLogin($login);
+    }
+
+
     public function formAction()
     {
         $login = $this->_getParam('login');
