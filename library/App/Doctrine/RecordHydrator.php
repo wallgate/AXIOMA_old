@@ -26,14 +26,20 @@ class App_Doctrine_RecordHydrator extends Doctrine_Hydrator_RecordDriver
             {
                 foreach ($columns as $column=>$definition)
                 {
-                    if ($definition['type'] == 'date' || $definition['type'] == 'datetime')
-                        if ($record->$column)
-                            $record->$column = new Zend_Date($record->$column, 'Y-M-d H:m:s');
+                    if ($record->$column)
+                        switch ($definition['type'])
+                        {
+                            case 'date':
+                                $record->$column = new Zend_Date(date('d.m.Y H:i:s', strtotime($record->$column)), 'd.m.Y');
+                                break;
+                            case 'datetime':
+                                $record->$column = new Zend_Date(date('d.m.Y H:i:s', strtotime($record->$column)), 'd.M.Y H:i:s');
+                                break;
+                        }
                 }
                 
                 $rowset[] = $record;
             }
-
             return count($rowset)>1 ? $rowset : $rowset[0];
         }
 
