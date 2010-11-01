@@ -1,10 +1,10 @@
 <p><a href="/employee/form">добавить сотрудника</a></p>
 
 <p>
-    <a href="/employee/list">все</a> |
-    <a href="/employee/list/<?= Table_User::STATUS_ACTIVE ?>">работающие</a> |
-    <a href="/employee/list/<?= Table_User::STATUS_RETIRED ?>">бывшие сотрудники</a> |
-    <a href="/employee/list/<?= Table_User::STATUS_TRIAL ?>">на испытательном сроке</a>
+    <a href="/employee">все</a> |
+    <a href="/employee/<?= Table_User::STATUS_ACTIVE ?>">работающие</a> |
+    <a href="/employee/<?= Table_User::STATUS_RETIRED ?>">бывшие сотрудники</a> |
+    <a href="/employee/<?= Table_User::STATUS_TRIAL ?>">на испытательном сроке</a>
 </p>
 
 <? if (count($this->users)) { ?>

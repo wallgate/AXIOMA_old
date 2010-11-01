@@ -106,7 +106,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // сотрудники
         $router->addRoute('showUsers', new Zend_Controller_Router_Route(
-            '/employee/list/:status', array('controller'=>'employee', 'action'=>'list', 'status'=>$status)
+            '/employee/:status', array('controller'=>'employee', 'action'=>'index', 'status'=>$status)
         ));
         $router->addRoute('viewUser', new Zend_Controller_Router_Route(
             '/employee/view/:login', array('controller'=>'employee', 'action'=>'view', 'login'=>$login)
